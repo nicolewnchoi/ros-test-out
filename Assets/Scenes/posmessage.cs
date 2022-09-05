@@ -63,7 +63,7 @@ public class posmessage : MonoBehaviour
             y[i] = (float)rosPos.y[i];
             r[i] = (float)rosPos.size[i] / 40f;
 
-            var pos1 = new Vector3(x[i]/100, -1*y[i]/100, Camera.main.nearClipPlane);
+            var pos1 = new Vector3(x[i]/100, y[i]/100, Camera.main.nearClipPlane);
             pos1.z = 0;
             objects[i].transform.position = pos1;
             DrawCircle(objects[i], 200, r[i], 0.2f);
