@@ -24,7 +24,7 @@ public class cameraAdjust : MonoBehaviour
 
         position = cameralists[1].transform.position;
         position.x = wid / 2 + 1.0f * (cameralists[1].orthographicSize) * width / height;
-        position.y = -=1f * hei / 2;
+        position.y = 1f * hei / 2;
         cameralists[1].transform.position = position;
 
 
