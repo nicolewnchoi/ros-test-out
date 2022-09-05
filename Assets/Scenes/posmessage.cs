@@ -51,10 +51,10 @@ public class posmessage : MonoBehaviour
 
         while (objects.Count > player_num)
         {
-            objects.Remove(objects[objects.Count - 1]);
-            x.Remove(x[x.Count - 1]);
-            y.Remove(y[y.Count - 1]);
-            r.Remove(r[r.Count - 1]);
+            objects.RemoveAt(objects.Count - 1);
+            x.RemoveAt(x.Count - 1);
+            y.RemoveAt(y.Count - 1);
+            r.RemoveAt(r.Count - 1);
         }
 
         for (int i = 0; i < player_num; i++)
