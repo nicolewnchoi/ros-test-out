@@ -51,6 +51,7 @@ public class posmessage : MonoBehaviour
 
         while (objects.Count > player_num)
         {
+            Destroy(objects[objects.Count - 1]);
             objects.RemoveAt(objects.Count - 1);
             x.RemoveAt(x.Count - 1);
             y.RemoveAt(y.Count - 1);
