@@ -40,12 +40,6 @@ public class posmessage : MonoBehaviour
     {
 
         int player_num = rosPos.total;
-        float cv_width = 1280f;
-        float cv_height = 1024f;
-        float projector_height = 1680;
-        float projector_width = 1050;
-        float perspective_x = 2 * projector_width / cv_width;
-        float perspective_y = projector_height / cv_height;
 
         while (objects.Count < player_num)
         {
@@ -66,14 +60,14 @@ public class posmessage : MonoBehaviour
 
         for (int i = 0; i < player_num; i++)
         {
-            x[i] = (float)rosPos.x[i] * perspective_x;
-            y[i] = (float)rosPos.y[i] * perspective_y;
-            r[i] = (float)rosPos.size[i] *1.7f;
+            x[i] = (float)rosPos.x[i];
+            y[i] = (float)rosPos.y[i];
+            r[i] = (float)rosPos.size[i] / 40f;
 
-            var pos1 = new Vector3(x[i], y[i], Camera.main.nearClipPlane);
+            var pos1 = new Vector3(x[i]/100, y[i]/100, Camera.main.nearClipPlane);
             pos1.z = 0;
             objects[i].transform.position = pos1;
-            DrawCircle(objects[i], 200, r[i], 20f);
+            DrawCircle(objects[i], 200, r[i], 0.2f);
 
         }
 
