@@ -40,8 +40,8 @@ public class posmessage : MonoBehaviour
     {
 
         int player_num = rosPos.total;
-
-        while (objects.Count < player_num)
+        
+        while(objects.Count < player_num)
         {
             objects.Add(Instantiate(objectbase));
             x.Add(0);
@@ -49,22 +49,21 @@ public class posmessage : MonoBehaviour
             r.Add(0);
         }
 
-        while (objects.Count > player_num)
+        while(objects.Count > player_num)
         {
-            Destroy(objects[objects.Count - 1]);
-            objects.RemoveAt(objects.Count - 1);
-            x.RemoveAt(x.Count - 1);
-            y.RemoveAt(y.Count - 1);
-            r.RemoveAt(r.Count - 1);
+            objects.Remove(objects[objects.Count-1]);
+            x.Remove(x[x.Count - 1]);
+            y.Remove(y[y.Count - 1]);
+            r.Remove(r[r.Count - 1]);
         }
 
         for (int i = 0; i < player_num; i++)
         {
             x[i] = (float)rosPos.x[i];
             y[i] = (float)rosPos.y[i];
-            r[i] = (float)rosPos.size[i] / 40f;
+            r[i] = (float)rosPos.size[i]/40f;
 
-            var pos1 = new Vector3(x[i]/100, y[i]/100, Camera.main.nearClipPlane);
+            var pos1 = Camera.main.ScreenToWorldPoint(new Vector3(x[i], y[i], Camera.main.nearClipPlane));
             pos1.z = 0;
             objects[i].transform.position = pos1;
             DrawCircle(objects[i], 200, r[i], 0.2f);
@@ -76,7 +75,7 @@ public class posmessage : MonoBehaviour
         //var y = (float)rosPos.y[0];
         //var pos = Camera.main.ScreenToWorldPoint(new Vector3(x, y,Camera.main.nearClipPlane));//convert to normal coordinate
         // pos.z = 0;
-        Debug.Log(rosPos.total + " and " + rosPos.x[0] + " and " + rosPos.y[0] + "and" + rosPos.size);
+        Debug.Log(rosPos.total + " and " + rosPos.x[0] +  " and " + rosPos.y[0] + "and" + rosPos.size );
         // Debug.Log(rosPos.total);
         // Debug.Log(rosPos.size[0] + "and" + rosPos.size[1] +"and"+ rosPos.size[2]);
     }
@@ -88,7 +87,7 @@ public class posmessage : MonoBehaviour
 
         for (int i = 0; i < steps + 1; i++)
         {
-            float x = radius * Mathf.Cos((360f / steps * i) * Mathf.Deg2Rad) + object_temp.transform.position.x;
+            float x = radius * Mathf.Cos((360f / steps * i) * Mathf.Deg2Rad) + object_temp.transform.position.x; 
             float y = radius * Mathf.Sin((360f / steps * i) * Mathf.Deg2Rad) + object_temp.transform.position.y;
             object_temp.GetComponent<LineRenderer>().SetPosition(i, new Vector3(x, y, object_temp.transform.position.z));
         }
