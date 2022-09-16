@@ -7,8 +7,8 @@ public class cameraAdjust : MonoBehaviour
     public List<Camera> cameralists;
     int height;
     int width;
-    float wid = 12.8f;
-    float hei = 10.24f;
+    float wid = 2160f;
+    float hei = 1960f;
 
     // Start is called before the first frame update
     void Start()
