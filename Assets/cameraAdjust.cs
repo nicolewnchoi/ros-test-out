@@ -2,16 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class cameraAdjust : MonoBehaviour
 {
     public List<Camera> cameralists;
     int height;
     int width;
-    float wid = 2160f;
-    float hei = 1960f;
+    public float wid = 1536f;
+    public float hei = 1024f;
 
     // Start is called before the first frame update
     void Start()
+    {
+
+
+
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         height = Screen.height;
         width = Screen.width;
@@ -27,12 +36,7 @@ public class cameraAdjust : MonoBehaviour
         position.y = 1f * hei / 2;
         cameralists[1].transform.position = position;
 
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
