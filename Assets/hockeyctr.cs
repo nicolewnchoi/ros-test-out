@@ -26,6 +26,7 @@ public class hockeyctr : MonoBehaviour
             Vector2 force = collision.gameObject.transform.position - transform.position;
             force *=  -1 * kickFactor;
             GetComponent<Rigidbody2D>().AddForce(force);
+            AudioManager.Instance.PlayKickAudio(collision.transform.position);
         }
     }
 
