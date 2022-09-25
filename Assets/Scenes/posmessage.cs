@@ -43,7 +43,7 @@ public class posmessage : MonoBehaviour
         float cv_width = 960f;
         float cv_height = 640f;
 
-        float perspective_x = projector_width / cv_width;
+        float perspective_x = 2 * projector_width / cv_width;
         float perspective_y = projector_height / cv_height;  //same
 
         int player_num = rosPos.total;
@@ -58,6 +58,7 @@ public class posmessage : MonoBehaviour
 
         while (objects.Count > player_num)
         {
+            Destroy(objects[objects.Count - 1]);
             objects.Remove(objects[objects.Count - 1]);
             x.Remove(x[x.Count - 1]);
             y.Remove(y[y.Count - 1]);
