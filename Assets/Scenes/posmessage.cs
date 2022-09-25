@@ -74,7 +74,8 @@ public class posmessage : MonoBehaviour
             var pos1 = new Vector3(x[i], y[i], 0);
             objects[i].transform.position = pos1;
             DrawCircle(objects[i], 200, r[i], 10f);
-
+            //update the collider
+            objects[i].GetComponent<CircleCollider2D>().radius = r[i];
         }
 
 

@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class hockeyctr : MonoBehaviour
+{
+    
+    public float kickFactor;
+    public Vector3 startpoint;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            Vector2 force = collision.gameObject.transform.position - transform.position;
+            force *=  -1 * kickFactor;
+            GetComponent<Rigidbody2D>().AddForce(force);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "leftgoal")
+        {
+
+        }
+        else
+        {
+
+        }
+        transform.position = startpoint;
+    }
+}
