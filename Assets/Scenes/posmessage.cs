@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 using RosPos = RosMessageTypes.ApInterfaces.PosMsg;
+using UnityEngine.UI;
+using System;
 
 public class posmessage : MonoBehaviour
 {
@@ -12,6 +14,12 @@ public class posmessage : MonoBehaviour
     public List<float> x;
     public List<float> y;
     public List<float> r;
+
+    //for debug
+    public Text text;
+    public Text text2;
+    public Text text3;
+
     private void Awake()
     {
         for (int i = 1; i < Display.displays.Length; i++)

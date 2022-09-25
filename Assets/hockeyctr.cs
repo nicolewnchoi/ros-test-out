@@ -40,5 +40,6 @@ public class hockeyctr : MonoBehaviour
 
         }
         transform.position = startpoint;
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 }
