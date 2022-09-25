@@ -38,10 +38,17 @@ public class posmessage : MonoBehaviour
 
     void posChange(RosPos rosPos)
     {
+        float projector_height = 1024;
+        float projector_width = 768;
+        float cv_width = 960f;
+        float cv_height = 640f;
+
+        float perspective_x = 2 * projector_width / cv_width;
+        float perspective_y = projector_height / cv_height;  //same
 
         int player_num = rosPos.total;
-        
-        while(objects.Count < player_num)
+
+        while (objects.Count < player_num)
         {
             objects.Add(Instantiate(objectbase));
             x.Add(0);
@@ -49,9 +56,10 @@ public class posmessage : MonoBehaviour
             r.Add(0);
         }
 
-        while(objects.Count > player_num)
+        while (objects.Count > player_num)
         {
-            objects.Remove(objects[objects.Count-1]);
+            Destroy(objects[objects.Count - 1]);
+            objects.Remove(objects[objects.Count - 1]);
             x.Remove(x[x.Count - 1]);
             y.Remove(y[y.Count - 1]);
             r.Remove(r[r.Count - 1]);
@@ -59,14 +67,13 @@ public class posmessage : MonoBehaviour
 
         for (int i = 0; i < player_num; i++)
         {
-            x[i] = (float)rosPos.x[i];
-            y[i] = (float)rosPos.y[i];
-            r[i] = (float)rosPos.size[i]/40f;
+            x[i] = (float)rosPos.x[i] * perspective_x;
+            y[i] = (float)rosPos.y[i] * perspective_y;
+            r[i] = (float)rosPos.size[i] * perspective_x;
 
-            var pos1 = Camera.main.ScreenToWorldPoint(new Vector3(x[i], y[i], Camera.main.nearClipPlane));
-            pos1.z = 0;
+            var pos1 = new Vector3(x[i], y[i], 0);
             objects[i].transform.position = pos1;
-            DrawCircle(objects[i], 200, r[i], 0.2f);
+            DrawCircle(objects[i], 200, r[i], 10f);
 
         }
 
@@ -75,7 +82,7 @@ public class posmessage : MonoBehaviour
         //var y = (float)rosPos.y[0];
         //var pos = Camera.main.ScreenToWorldPoint(new Vector3(x, y,Camera.main.nearClipPlane));//convert to normal coordinate
         // pos.z = 0;
-        Debug.Log(rosPos.total + " and " + rosPos.x[0] +  " and " + rosPos.y[0] + "and" + rosPos.size );
+        Debug.Log(rosPos.total + " and " + rosPos.x[0] + " and " + rosPos.y[0] + "and" + rosPos.size);
         // Debug.Log(rosPos.total);
         // Debug.Log(rosPos.size[0] + "and" + rosPos.size[1] +"and"+ rosPos.size[2]);
     }
@@ -87,19 +94,11 @@ public class posmessage : MonoBehaviour
 
         for (int i = 0; i < steps + 1; i++)
         {
-            float x = radius * Mathf.Cos((360f / steps * i) * Mathf.Deg2Rad) + object_temp.transform.position.x; 
+            float x = radius * Mathf.Cos((360f / steps * i) * Mathf.Deg2Rad) + object_temp.transform.position.x;
             float y = radius * Mathf.Sin((360f / steps * i) * Mathf.Deg2Rad) + object_temp.transform.position.y;
             object_temp.GetComponent<LineRenderer>().SetPosition(i, new Vector3(x, y, object_temp.transform.position.z));
         }
 
     }
 
-    Vector3 Normlization(Vector3 worldpoint)
-    {
-        Vector3 normlized_point;
-        normlized_point.x = worldpoint.x / worldpoint.z;
-        normlized_point.y = worldpoint.y / worldpoint.z;
-        normlized_point.z = 0;
-        return normlized_point;
-    }
 }

@@ -11,6 +11,7 @@ public class cameraAdjust : MonoBehaviour
     public float wid = 1536f;
     public float hei = 1024f;
 
+    
     // Start is called before the first frame update
     void Start()
     {
