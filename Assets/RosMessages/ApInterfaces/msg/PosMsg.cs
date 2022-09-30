@@ -14,7 +14,7 @@ namespace RosMessageTypes.ApInterfaces
         public override string RosMessageName => k_RosMessageName;
 
         public sbyte total;
-        public long timestamp;
+        public ulong timestamp;
         public double[] x;
         public double[] y;
         public sbyte[] player_id;
@@ -32,7 +32,7 @@ namespace RosMessageTypes.ApInterfaces
             this.size = new double[32];
         }
 
-        public PosMsg(sbyte total, long timestamp, double[] x, double[] y, sbyte[] player_id, string[] tag_id, double[] size)
+        public PosMsg(sbyte total, ulong timestamp, double[] x, double[] y, sbyte[] player_id, string[] tag_id, double[] size)
         {
             this.total = total;
             this.timestamp = timestamp;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 using RosPos = RosMessageTypes.ApInterfaces.PosMsg;
+using RosButton = RosMessageTypes.ApInterfaces.ButtonMsg;
 using UnityEngine.UI;
 using System;
 
@@ -20,6 +21,9 @@ public class posmessage : MonoBehaviour
     public Text text2;
     public Text text3;
 
+    //for store weather kick button ispressed
+    bool[] kickbutton;
+
     private void Awake()
     {
         for (int i = 1; i < Display.displays.Length; i++)
@@ -36,6 +40,7 @@ public class posmessage : MonoBehaviour
         //DrawCircle(objects1, 200, 1.5f, 0.2f);
         //DrawCircle(objects2, 200, 0.7f, 0.2f);
         ROSConnection.GetOrCreateInstance().Subscribe<RosPos>("pos_raw", posChange);
+        ROSConnection.GetOrCreateInstance().Subscribe<RosButton>("kick_size", kickChange);
     }
 
     // Update is called once per frame
@@ -81,6 +86,13 @@ public class posmessage : MonoBehaviour
 
             var pos1 = new Vector3(x[i], y[i], 0);
             objects[i].transform.position = pos1;
+
+            //if is kicked set the size to a abosolute
+            if (kickbutton[i])
+            {
+                r[i] = 500; //need change later when we get gamemanager
+            }
+
             DrawCircle(objects[i], 200, r[i], 10f);
             //update the collider
             objects[i].GetComponent<CircleCollider2D>().radius = r[i];
@@ -108,6 +120,11 @@ public class posmessage : MonoBehaviour
             object_temp.GetComponent<LineRenderer>().SetPosition(i, new Vector3(x, y, object_temp.transform.position.z));
         }
 
+    }
+
+    void kickChange(RosButton kicksize)
+    {
+        kickbutton = kicksize.kick;
     }
 
 }
