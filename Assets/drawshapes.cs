@@ -9,9 +9,9 @@ public class drawshapes : MonoBehaviour
     public Vector3 point;
     public float radius;
     public Vector2Int startend;
+    public bool isgoal;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         
     }
@@ -21,6 +21,11 @@ public class drawshapes : MonoBehaviour
     {
         transform.position = point;
         DrawCircle(this.gameObject, 200, radius, 20);
+        if (isgoal)
+        {
+            gameMgr.Inst.updateevent.RemoveListener(updateshape);//incase adding multiple events
+            gameMgr.Inst.updateevent.AddListener(updateshape);
+        }
     }
 
     void DrawCircle(GameObject object_temp, int steps, float radius, float width)
@@ -41,5 +46,11 @@ public class drawshapes : MonoBehaviour
             object_temp.GetComponent<LineRenderer>().SetPosition(i, new Vector3(x, y, object_temp.transform.position.z));
         }
 
+    }
+
+    void updateshape()
+    {
+        transform.position = point;
+        DrawCircle(this.gameObject, 200, radius*gameMgr.Inst.currentData.goalSize, 20);
     }
 }

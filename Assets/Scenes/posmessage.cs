@@ -93,9 +93,11 @@ public class posmessage : MonoBehaviour
                 r[i] = 500; //need change later when we get gamemanager
             }
 
-            DrawCircle(objects[i], 200, r[i], 10f);
+            var radius = gameMgr.Inst.currentData.ballRadius;
+
+            DrawCircle(objects[i], 200, r[i]*radius, 10f);
             //update the collider
-            objects[i].GetComponent<CircleCollider2D>().radius = r[i];
+            objects[i].GetComponent<CircleCollider2D>().radius = r[i]*radius;
         }
 
 
