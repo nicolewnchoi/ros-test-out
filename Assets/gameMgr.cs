@@ -36,6 +36,12 @@ public class gameMgr : MonoBehaviour
         
     }
 
+    void updateTimescale()
+    {
+        int value = Mathf.Clamp(currentData.startStop, 0, 1); //suppose it is inclusive
+        Time.timeScale = value;
+    }
+
     public rosAirHockyreturnData tryUpdate(rosAirHockyinData inData)
     {
         currentData = inData;
@@ -43,11 +49,6 @@ public class gameMgr : MonoBehaviour
         return currentData;
     }
 
-    void updateTimescale()
-    {
-        int value = Mathf.Clamp(currentData.startStop,0,1); //suppose it is inclusive
-        Time.timeScale = value;
-    }
 }
 
 public struct AirHockeyGameData
