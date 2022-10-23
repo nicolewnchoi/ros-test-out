@@ -24,7 +24,7 @@ public class gameMgr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentData = new AirHockeyGameData();
+        currentData = new AirHockeyGameData(1);
         if (updateevent == null)
             updateevent = new UnityEvent();
         updateevent.AddListener(updateTimescale);

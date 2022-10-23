@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Robotics.UrdfImporter.Link;
 
 public class hockeyctr : MonoBehaviour
 {
     
     public float kickFactor;
     public Vector3 startpoint;
+    public bool debugmode;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +18,35 @@ public class hockeyctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (debugmode)
+        {
+            
+            if (Input.GetKeyDown(KeyCode.D))
+            {    
+                Vector2 force = Vector2.right * 10000;
+                force *= 1 * kickFactor * gameMgr.Inst.currentData.ballSpeed;
+                GetComponent<Rigidbody2D>().AddForce(force);
+            }
+            else if (Input.GetKeyDown(KeyCode.A))
+            {
+                Vector2 force = Vector2.left * 10000;
+                force *= 1 * kickFactor * gameMgr.Inst.currentData.ballSpeed;
+                GetComponent<Rigidbody2D>().AddForce(force);
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                Vector2 force = Vector2.down * 10000;
+                force *= 1 * kickFactor * gameMgr.Inst.currentData.ballSpeed;
+                GetComponent<Rigidbody2D>().AddForce(force);
+            }
+            else if (Input.GetKeyDown(KeyCode.W))
+            {
+                Vector2 force = Vector2.up * 10000;
+                force *= 1 * kickFactor * gameMgr.Inst.currentData.ballSpeed;
+                GetComponent<Rigidbody2D>().AddForce(force);
+            }
+
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
