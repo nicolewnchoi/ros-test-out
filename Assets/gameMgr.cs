@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using rosAirHockyinData = AirHockeyGameData; //change to ros message when jery finished
-using rosAirHockyreturnData = AirHockeyGameData; // change to ros message when jery finished
+using rosAirHockyinData = RosMessageTypes.ApInterfaces.AddThreeIntsRequest; 
+using rosAirHockyreturnData = RosMessageTypes.ApInterfaces.AddThreeIntsResponse; 
 using UnityEngine.Events;
 using UnityEngine;
 
@@ -71,6 +71,34 @@ public struct AirHockeyGameData
     public int capture;
     public int startStop;
 
-    //implicit converision when jery finished 
+    public AirHockeyGameData(rosAirHockyinData indata)
+    {
+        ballSpeed = indata.ballspeed;
+        ballRadius = indata.ballradius;
+        goalSize = indata.goalsize;
+        friction = indata.friction;
+        buttonSpeed = indata.buttonspeed;
+        capture = indata.capture;
+        startStop = indata.startstop;
+    }
+
+    public static implicit operator AirHockeyGameData(rosAirHockyinData indata)
+    {
+        return new AirHockeyGameData(indata);
+    }
+
+    public static implicit operator rosAirHockyreturnData(AirHockeyGameData outdata)
+    {
+        var returndata = new rosAirHockyreturnData();
+        returndata.ballspeed = outdata.ballSpeed;
+        returndata.ballradius = outdata.ballRadius;
+        returndata.goalsize = outdata.goalSize;
+        returndata.friction = outdata.friction;
+        returndata.buttonspeed = outdata.buttonSpeed;
+        returndata.capture = (sbyte)outdata.capture;
+        returndata.startstop = (sbyte)outdata.startStop;
+        return returndata;
+    }
+
 }
 
