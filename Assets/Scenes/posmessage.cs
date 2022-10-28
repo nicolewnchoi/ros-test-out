@@ -28,7 +28,7 @@ public class posmessage : MonoBehaviour
 
     //unity service name
     [SerializeField]
-    string m_ServiceName = "unity_srv";
+    string m_ServiceName = "unity_server";
 
     
 
