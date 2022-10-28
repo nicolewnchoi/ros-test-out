@@ -4,6 +4,8 @@ using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 using RosPos = RosMessageTypes.ApInterfaces.PosMsg;
 using RosButton = RosMessageTypes.ApInterfaces.ButtonMsg;
+using rosAirHockyinData = RosMessageTypes.ApInterfaces.AddThreeIntsRequest;
+using rosAirHockyreturnData = RosMessageTypes.ApInterfaces.AddThreeIntsResponse;
 using UnityEngine.UI;
 using System;
 
@@ -24,6 +26,12 @@ public class posmessage : MonoBehaviour
     //for store weather kick button ispressed
     bool[] kickbutton;
 
+    //unity service name
+    [SerializeField]
+    string m_ServiceName = "unity_srv";
+
+    
+
     private void Awake()
     {
         for (int i = 1; i < Display.displays.Length; i++)
@@ -41,6 +49,7 @@ public class posmessage : MonoBehaviour
         //DrawCircle(objects2, 200, 0.7f, 0.2f);
         ROSConnection.GetOrCreateInstance().Subscribe<RosPos>("pos_raw", posChange);
         ROSConnection.GetOrCreateInstance().Subscribe<RosButton>("kick_size", kickChange);
+        ROSConnection.GetOrCreateInstance().ImplementService<rosAirHockyinData, rosAirHockyreturnData>(m_ServiceName, currentStatus);
     }
 
     // Update is called once per frame
@@ -127,6 +136,11 @@ public class posmessage : MonoBehaviour
     void kickChange(RosButton kicksize)
     {
         kickbutton = kicksize.kick;
+    }
+
+    rosAirHockyreturnData currentStatus(rosAirHockyinData inData)
+    {
+        return gameMgr.Inst.tryUpdate(inData);
     }
 
 }
