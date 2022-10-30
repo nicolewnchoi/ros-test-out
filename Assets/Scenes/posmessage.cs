@@ -27,8 +27,7 @@ public class posmessage : MonoBehaviour
     bool[] kickbutton;
 
     //unity service name
-    [SerializeField]
-    string m_ServiceName = "unity_server";
+    string m_ServiceName = "unity_srv";
 
     
 
