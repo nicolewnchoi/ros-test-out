@@ -9,12 +9,6 @@ public class servertest : MonoBehaviour
 
     public string serviceName = "unity_srv";
 
-    public GameObject cube;
-
-    // Cube movement conditions
-    public float delta = 1.0f;
-    public float speed = 2.0f;
-    private Vector3 destination;
 
     float awaitingResponseUntilTimestamp = -1;
 
@@ -22,7 +16,6 @@ public class servertest : MonoBehaviour
     {
         ros = ROSConnection.GetOrCreateInstance();
         ros.RegisterRosService<rosAirHockyinData, rosAirHockyreturnData>(serviceName);
-        destination = cube.transform.position;
     }
 
     private void FixedUpdate()
