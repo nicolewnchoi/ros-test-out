@@ -874,9 +874,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serviceName: unity_srv
-  cube: {fileID: 0}
-  delta: 1
-  speed: 2
 --- !u!1 &491848725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,7 +1431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e68e72766c3e664b91dfabb275687a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectbase: {fileID: 0}
+  objectbase: {fileID: 7133940756896752233, guid: f53427ed5aa306643b9e85f4ded21a20, type: 3}
   objects: []
   x: []
   y: []
