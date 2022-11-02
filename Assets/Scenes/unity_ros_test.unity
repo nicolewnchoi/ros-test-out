@@ -840,6 +840,7 @@ GameObject:
   m_Component:
   - component: {fileID: 378762075}
   - component: {fileID: 378762076}
+  - component: {fileID: 378762077}
   m_Layer: 0
   m_Name: tester
   m_TagString: Untagged
@@ -868,12 +869,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378762074}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb7696d93536e34d80ef287dfdbda3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serviceName: unity_srv
+--- !u!114 &378762077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378762074}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc8697704eaba6b4ea6cdf84a2181158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topicName: pos_raw
+  publishMessageFrequency: 0.5
 --- !u!1 &491848725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1643,6 +1658,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffd840db21dd2845b63f3676bcd158d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentData:
+    ballSpeed: 0
+    ballRadius: 0
+    goalSize: 0
+    friction: 0
+    buttonSpeed: 0
+    capture: 0
+    startStop: 0
   updateevent:
     m_PersistentCalls:
       m_Calls: []

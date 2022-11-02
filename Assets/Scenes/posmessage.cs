@@ -37,6 +37,9 @@ public class posmessage : MonoBehaviour
         {
             Display.displays[i].Activate();
         }
+        ROSConnection.GetOrCreateInstance().ImplementService<rosAirHockyinData, rosAirHockyreturnData>(m_ServiceName, currentStatus);
+        ROSConnection.GetOrCreateInstance().Subscribe<RosPos>("pos_raw", posChange);
+        ROSConnection.GetOrCreateInstance().Subscribe<RosButton>("kick_size", kickChange);
     }
 
     void Start()
@@ -46,9 +49,8 @@ public class posmessage : MonoBehaviour
         //objects2.transform.position = new Vector3(0f, 4f, 0f);
         //DrawCircle(objects1, 200, 1.5f, 0.2f);
         //DrawCircle(objects2, 200, 0.7f, 0.2f);
-        ROSConnection.GetOrCreateInstance().Subscribe<RosPos>("pos_raw", posChange);
-        ROSConnection.GetOrCreateInstance().Subscribe<RosButton>("kick_size", kickChange);
-        ROSConnection.GetOrCreateInstance().ImplementService<rosAirHockyinData, rosAirHockyreturnData>(m_ServiceName, currentStatus);
+        kickbutton = new bool[] { };
+        
     }
 
     // Update is called once per frame
@@ -96,7 +98,7 @@ public class posmessage : MonoBehaviour
             objects[i].transform.position = pos1;
 
             //if is kicked set the size to a abosolute
-            if (kickbutton[i])
+            if (kickbutton.Length == player_num && kickbutton[i])
             {
                 r[i] = 500; //need change later when we get gamemanager
             }

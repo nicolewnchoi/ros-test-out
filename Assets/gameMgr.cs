@@ -50,7 +50,7 @@ public class gameMgr : MonoBehaviour
     }
 
 }
-
+[System.Serializable]
 public struct AirHockeyGameData
 {
     public AirHockeyGameData(int num = 1)
