@@ -2,13 +2,18 @@ using rosAirHockyinData = RosMessageTypes.ApInterfaces.AddThreeIntsRequest;
 using rosAirHockyreturnData = RosMessageTypes.ApInterfaces.AddThreeIntsResponse;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
+using UnityEditor;
 
 public class servertest : MonoBehaviour
 {
     ROSConnection ros;
 
     public string serviceName = "unity_srv";
-
+    public float ballradius;
+    public float ballspeed;
+    public float goalsize;
+    public float friction;
+    public float buttonspeed;
 
     float awaitingResponseUntilTimestamp = -1;
 
@@ -37,4 +42,13 @@ public class servertest : MonoBehaviour
     {
         Debug.Log("succeed");
     }
+
+    //private void OnGUI()
+    //{
+    //    //ballradius = EditorGUILayout.Slider("Slider", ballradius, -3, 3);
+    //    if (GUI.Button(new Rect(10, 10, 150, 100), "I am a button"))
+    //    {
+    //        print("You clicked the button!");
+    //    }
+    //}
 }

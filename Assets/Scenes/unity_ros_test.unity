@@ -869,12 +869,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378762074}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb7696d93536e34d80ef287dfdbda3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serviceName: unity_srv
+  ballradius: 0
+  ballspeed: 0
+  goalsize: 0
+  friction: 0
+  buttonspeed: 0
 --- !u!114 &378762077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2277,7 +2282,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 381d933b6bdc29843956f12e505a722d, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1

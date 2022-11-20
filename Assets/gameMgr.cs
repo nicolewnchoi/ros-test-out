@@ -56,7 +56,7 @@ public struct AirHockeyGameData
     public AirHockeyGameData(int num = 1)
     {
         ballSpeed = num; //done
-        ballRadius = num; //done
+        ballRadius = 2*num; //done
         goalSize = num; //done
         friction = 0.4f; //done
         buttonSpeed = num; //not sure where to put it

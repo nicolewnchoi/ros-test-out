@@ -33,9 +33,11 @@ public class posmessage : MonoBehaviour
 
     private void Awake()
     {
+        //set resolution of our screen
+        Screen.SetResolution(768, 1024, true,60);
         for (int i = 1; i < Display.displays.Length; i++)
         {
-            Display.displays[i].Activate();
+            Display.displays[i].Activate(769,1024,60);
         }
         ROSConnection.GetOrCreateInstance().ImplementService<rosAirHockyinData, rosAirHockyreturnData>(m_ServiceName, currentStatus);
         ROSConnection.GetOrCreateInstance().Subscribe<RosPos>("pos_raw", posChange);
