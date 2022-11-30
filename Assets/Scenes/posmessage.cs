@@ -65,8 +65,8 @@ public class posmessage : MonoBehaviour
     {
         float projector_height = 1024;
         float projector_width = 768;
-        float cv_width = 960f;
-        float cv_height = 640f;
+        float cv_width = 720f;
+        float cv_height = 480f;
 
         float perspective_x = 2 * projector_width / cv_width;
         float perspective_y = projector_height / cv_height;  //same
@@ -107,7 +107,7 @@ public class posmessage : MonoBehaviour
 
             var radius = gameMgr.Inst.currentData.ballRadius;
 
-            DrawCircle(objects[i], 200, r[i]*radius, 10f);
+            DrawCircle(objects[i], 200, r[i]*radius, 4f);
             //update the collider
             objects[i].GetComponent<CircleCollider2D>().radius = r[i]*radius;
         }
