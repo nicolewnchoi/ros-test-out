@@ -33,12 +33,7 @@ public class posmessage : MonoBehaviour
 
     private void Awake()
     {
-        //set resolution of our screen
-        Screen.SetResolution(768, 1024, true,60);
-        for (int i = 1; i < Display.displays.Length; i++)
-        {
-            Display.displays[i].Activate(769,1024,60);
-        }
+        
         
     }
 
@@ -49,6 +44,12 @@ public class posmessage : MonoBehaviour
         //objects2.transform.position = new Vector3(0f, 4f, 0f);
         //DrawCircle(objects1, 200, 1.5f, 0.2f);
         //DrawCircle(objects2, 200, 0.7f, 0.2f);
+        //set resolution of our screen
+        Screen.SetResolution(768, 1024, true, 60);
+        for (int i = 1; i < Display.displays.Length; i++)
+        {
+            Display.displays[i].Activate(768, 1024, 60);
+        }
         kickbutton = new bool[] { };
         ROSConnection.GetOrCreateInstance().ImplementService<rosAirHockyinData, rosAirHockyreturnData>(m_ServiceName, currentStatus);
         ROSConnection.GetOrCreateInstance().Subscribe<RosPos>("pos_raw", posChange);
