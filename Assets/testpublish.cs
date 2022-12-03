@@ -8,7 +8,7 @@ using RosButton = RosMessageTypes.ApInterfaces.ButtonMsg;
 public class testpublish : MonoBehaviour
 {
     ROSConnection ros;
-    public string topicName = "pos_raw";
+    string topicName = "pos_raw";
 
     // Publish the cube's position and rotation every N seconds
     public float publishMessageFrequency = 0.5f;
@@ -31,7 +31,7 @@ public class testpublish : MonoBehaviour
         {
             // Finally send the message to server_endpoint.py running in ROS
             
-            RosPos publish = new RosPos(1, 0,new double[]{10}, new double[] { 10 }, new sbyte[] { 1 }, new string[] { "1"},new double[] { 10});
+            RosPos publish = new RosPos(1, 0,new double[]{ 10}, new double[] {10}, new sbyte[] { 1 }, new string[] { "1"},new double[] { 10});
             ros.Publish(topicName, publish);
 
             timeElapsed = 0;
