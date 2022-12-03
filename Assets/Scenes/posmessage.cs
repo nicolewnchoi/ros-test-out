@@ -39,9 +39,7 @@ public class posmessage : MonoBehaviour
         {
             Display.displays[i].Activate(769,1024,60);
         }
-        ROSConnection.GetOrCreateInstance().ImplementService<rosAirHockyinData, rosAirHockyreturnData>(m_ServiceName, currentStatus);
-        ROSConnection.GetOrCreateInstance().Subscribe<RosPos>("pos_raw", posChange);
-        ROSConnection.GetOrCreateInstance().Subscribe<RosButton>("kick_size", kickChange);
+        
     }
 
     void Start()
@@ -52,7 +50,10 @@ public class posmessage : MonoBehaviour
         //DrawCircle(objects1, 200, 1.5f, 0.2f);
         //DrawCircle(objects2, 200, 0.7f, 0.2f);
         kickbutton = new bool[] { };
-        
+        ROSConnection.GetOrCreateInstance().ImplementService<rosAirHockyinData, rosAirHockyreturnData>(m_ServiceName, currentStatus);
+        ROSConnection.GetOrCreateInstance().Subscribe<RosPos>("pos_raw", posChange);
+        ROSConnection.GetOrCreateInstance().Subscribe<RosButton>("kick_size", kickChange);
+
     }
 
     // Update is called once per frame
@@ -107,7 +108,7 @@ public class posmessage : MonoBehaviour
 
             var radius = gameMgr.Inst.currentData.ballRadius;
 
-            DrawCircle(objects[i], 200, r[i]*radius, 4f);
+            DrawCircle(objects[i], 200, r[i]*radius, 10f);
             //update the collider
             objects[i].GetComponent<CircleCollider2D>().radius = r[i]*radius;
         }
