@@ -31,7 +31,7 @@ public class testpublish : MonoBehaviour
         {
             // Finally send the message to server_endpoint.py running in ROS
             
-            RosPos publish = new RosPos(1, 0,new double[]{10}, new double[] { 10 }, new sbyte[] { 1 }, new string[] { "1"},new double[] { 10});
+            RosPos publish = new RosPos(1, 0,new double[]{10}, new double[] { 10 }, new sbyte[] { 1 }, new string[] { "1"},new double[] { 10}, 0);
             ros.Publish(topicName, publish);
 
             timeElapsed = 0;
