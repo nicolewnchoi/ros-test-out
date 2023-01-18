@@ -9,6 +9,8 @@ using rosAirHockyreturnData = RosMessageTypes.ApInterfaces.AddThreeIntsResponse;
 using UnityEngine.UI;
 using System;
 
+using RosMessageTypes.UnityRoboticsDemo;
+
 public class posmessage : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -55,6 +57,9 @@ public class posmessage : MonoBehaviour
         ROSConnection.GetOrCreateInstance().Subscribe<RosPos>("pos_raw", posChange);
         ROSConnection.GetOrCreateInstance().Subscribe<RosButton>("kick_size", kickChange);
 
+        //Experiment with publish everytime we receive a message to see where latency is
+        ROSConnection.GetOrCreateInstance().RegisterPublisher<PosRotMsg>("pos_heard");
+
     }
 
     // Update is called once per frame
@@ -65,6 +70,10 @@ public class posmessage : MonoBehaviour
 
     void posChange(RosPos rosPos)
     {
+        //get the time as soon as we enter the callback so we can compare to the time the 
+        // message was sent
+        double currms = (System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc)).TotalMilliseconds;
+        
         float projector_height = 1024;
         float projector_width = 768;
         float cv_width = 720f;
@@ -75,12 +84,38 @@ public class posmessage : MonoBehaviour
 
         int player_num = rosPos.total;
 
+
+
+
+        // time experiment
+        //size rosPos.size[0]
+        //count rosPos.size[1]
+        //time-sent ms since epoch rosPos.ms
+
+        double msgms = (double)rosPos.ms;
+        double timediff = currms - msgms;
+        Debug.Log(" diff:"+ timediff + "currms:"+ currms+" msgms:"+ msgms );
+
+        PosRotMsg cubePos = new PosRotMsg(
+                (float)timediff,
+                (int)rosPos.size[1],
+                0,
+                0,
+                0,
+                0,
+                0
+            );
+
+
+        //
+
         while (objects.Count < player_num)
         {
             objects.Add(Instantiate(objectbase));
             x.Add(0);
             y.Add(0);
             r.Add(0);
+            Debug.Log("Creating object");
         }
 
         while (objects.Count > player_num)
@@ -90,6 +125,7 @@ public class posmessage : MonoBehaviour
             x.Remove(x[x.Count - 1]);
             y.Remove(y[y.Count - 1]);
             r.Remove(r[r.Count - 1]);
+            Debug.Log("Destroying object");
         }
 
         for (int i = 0; i < player_num; i++)
@@ -112,14 +148,18 @@ public class posmessage : MonoBehaviour
             DrawCircle(objects[i], 200, r[i]*radius, 10f);
             //update the collider
             objects[i].GetComponent<CircleCollider2D>().radius = r[i]*radius;
+            //Debug.Log(objects[i].GetComponent<CircleCollider2D>().radius);
         }
+
+        //
+        ROSConnection.GetOrCreateInstance().Publish("pos_heard", cubePos);
 
 
         //var x = (float)rosPos.x[0];
         //var y = (float)rosPos.y[0];
         //var pos = Camera.main.ScreenToWorldPoint(new Vector3(x, y,Camera.main.nearClipPlane));//convert to normal coordinate
         // pos.z = 0;
-        Debug.Log(rosPos.total + " and " + rosPos.x[0] + " and " + rosPos.y[0] + "and" + rosPos.size);
+        //Debug.Log(rosPos.total + " and " + rosPos.x[0] + " and " + rosPos.y[0] + "and" + rosPos.size);
         // Debug.Log(rosPos.total);
         // Debug.Log(rosPos.size[0] + "and" + rosPos.size[1] +"and"+ rosPos.size[2]);
     }
@@ -145,6 +185,7 @@ public class posmessage : MonoBehaviour
 
     rosAirHockyreturnData currentStatus(rosAirHockyinData inData)
     {
+        Debug.Log("Message Received!");
         return gameMgr.Inst.tryUpdate(inData);
     }
 
