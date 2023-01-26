@@ -15,6 +15,7 @@ namespace RosMessageTypes.ApInterfaces
 
         public sbyte total;
         public ulong timestamp;
+        public ulong id;
         public double[] x;
         public double[] y;
         public sbyte[] player_id;
@@ -26,6 +27,7 @@ namespace RosMessageTypes.ApInterfaces
         {
             this.total = 0;
             this.timestamp = 0;
+            this.id = 0;
             this.x = new double[32];
             this.y = new double[32];
             this.player_id = new sbyte[32];
@@ -34,10 +36,11 @@ namespace RosMessageTypes.ApInterfaces
             this.ms = 0.0;
         }
 
-        public PosMsg(sbyte total, ulong timestamp, double[] x, double[] y, sbyte[] player_id, string[] tag_id, double[] size, double ms)
+        public PosMsg(sbyte total, ulong timestamp, ulong id, double[] x, double[] y, sbyte[] player_id, string[] tag_id, double[] size, double ms)
         {
             this.total = total;
             this.timestamp = timestamp;
+            this.id = id;
             this.x = x;
             this.y = y;
             this.player_id = player_id;
@@ -52,6 +55,7 @@ namespace RosMessageTypes.ApInterfaces
         {
             deserializer.Read(out this.total);
             deserializer.Read(out this.timestamp);
+            deserializer.Read(out this.id);
             deserializer.Read(out this.x, sizeof(double), 32);
             deserializer.Read(out this.y, sizeof(double), 32);
             deserializer.Read(out this.player_id, sizeof(sbyte), 32);
@@ -64,6 +68,7 @@ namespace RosMessageTypes.ApInterfaces
         {
             serializer.Write(this.total);
             serializer.Write(this.timestamp);
+            serializer.Write(this.id);
             serializer.Write(this.x);
             serializer.Write(this.y);
             serializer.Write(this.player_id);
@@ -77,6 +82,7 @@ namespace RosMessageTypes.ApInterfaces
             return "PosMsg: " +
             "\ntotal: " + total.ToString() +
             "\ntimestamp: " + timestamp.ToString() +
+            "\nid: " + id.ToString() +
             "\nx: " + System.String.Join(", ", x.ToList()) +
             "\ny: " + System.String.Join(", ", y.ToList()) +
             "\nplayer_id: " + System.String.Join(", ", player_id.ToList()) +
