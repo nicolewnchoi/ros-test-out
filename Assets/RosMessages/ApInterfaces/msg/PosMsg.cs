@@ -21,7 +21,9 @@ namespace RosMessageTypes.ApInterfaces
         public sbyte[] player_id;
         public string[] tag_id;
         public double[] size;
-        public double ms;
+        public double frame_received_ms;
+        public double frame_done_processing_ms;
+        public double msg_sent_ms;
 
         public PosMsg()
         {
@@ -33,10 +35,12 @@ namespace RosMessageTypes.ApInterfaces
             this.player_id = new sbyte[32];
             this.tag_id = new string[32];
             this.size = new double[32];
-            this.ms = 0.0;
+            this.frame_received_ms = 0.0;
+            this.frame_done_processing_ms = 0.0;
+            this.msg_sent_ms = 0.0;
         }
 
-        public PosMsg(sbyte total, ulong timestamp, ulong id, double[] x, double[] y, sbyte[] player_id, string[] tag_id, double[] size, double ms)
+        public PosMsg(sbyte total, ulong timestamp, ulong id, double[] x, double[] y, sbyte[] player_id, string[] tag_id, double[] size, double frame_received_ms, double frame_done_processing_ms, double msg_sent_ms)
         {
             this.total = total;
             this.timestamp = timestamp;
@@ -46,7 +50,9 @@ namespace RosMessageTypes.ApInterfaces
             this.player_id = player_id;
             this.tag_id = tag_id;
             this.size = size;
-            this.ms = ms;
+            this.frame_received_ms = frame_received_ms;
+            this.frame_done_processing_ms = frame_done_processing_ms;
+            this.msg_sent_ms = msg_sent_ms;
         }
 
         public static PosMsg Deserialize(MessageDeserializer deserializer) => new PosMsg(deserializer);
@@ -61,7 +67,9 @@ namespace RosMessageTypes.ApInterfaces
             deserializer.Read(out this.player_id, sizeof(sbyte), 32);
             deserializer.Read(out this.tag_id, 32);
             deserializer.Read(out this.size, sizeof(double), 32);
-            deserializer.Read(out this.ms);
+            deserializer.Read(out this.frame_received_ms);
+            deserializer.Read(out this.frame_done_processing_ms);
+            deserializer.Read(out this.msg_sent_ms);
         }
 
         public override void SerializeTo(MessageSerializer serializer)
@@ -74,7 +82,9 @@ namespace RosMessageTypes.ApInterfaces
             serializer.Write(this.player_id);
             serializer.Write(this.tag_id);
             serializer.Write(this.size);
-            serializer.Write(this.ms);
+            serializer.Write(this.frame_received_ms);
+            serializer.Write(this.frame_done_processing_ms);
+            serializer.Write(this.msg_sent_ms);
         }
 
         public override string ToString()
@@ -88,7 +98,9 @@ namespace RosMessageTypes.ApInterfaces
             "\nplayer_id: " + System.String.Join(", ", player_id.ToList()) +
             "\ntag_id: " + System.String.Join(", ", tag_id.ToList()) +
             "\nsize: " + System.String.Join(", ", size.ToList()) +
-            "\nms: " + ms.ToString();
+            "\nframe_received_ms: " + frame_received_ms.ToString() +
+            "\nframe_done_processing_ms: " + frame_done_processing_ms.ToString() +
+            "\nmsg_sent_ms: " + msg_sent_ms.ToString();
         }
 
 #if UNITY_EDITOR

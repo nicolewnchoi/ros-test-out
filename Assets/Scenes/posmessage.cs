@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 using RosPos = RosMessageTypes.ApInterfaces.PosMsg;
 using RosButton = RosMessageTypes.ApInterfaces.ButtonMsg;
+using RosTiming = RosMessageTypes.ApInterfaces.TimingMsg;
 using rosAirHockyinData = RosMessageTypes.ApInterfaces.AddThreeIntsRequest;
 using rosAirHockyreturnData = RosMessageTypes.ApInterfaces.AddThreeIntsResponse;
 using UnityEngine.UI;
@@ -35,6 +36,8 @@ public class posmessage : MonoBehaviour
     int msgReceivedId;
 
     int counter;
+
+    //public System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
     //unity service name
     string m_ServiceName = "unity_srv";
@@ -70,7 +73,7 @@ public class posmessage : MonoBehaviour
         ROSConnection.GetOrCreateInstance().Subscribe<RosButton>("kick_size", kickChange);
 
         //Experiment with publish everytime we receive a message to see where latency is
-        ROSConnection.GetOrCreateInstance().RegisterPublisher<PosRotMsg>("pos_heard");
+        ROSConnection.GetOrCreateInstance().RegisterPublisher<RosTiming>("pos_heard");
 
     }
 
@@ -139,21 +142,42 @@ public class posmessage : MonoBehaviour
             double endRenderTime = (System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc)).TotalMilliseconds;
 
             Debug.Assert((int)rosPosMsg.id == msgReceivedId);
-            double msgSentTime = (double)rosPosMsg.ms;
-            Debug.LogFormat("msgid:{0} sent at {1:00}, received with {2:00}, begin render at {3:00} and finished render at {4:00}",
-                msgReceivedId, msgSentTime, msgReceivedTime - msgSentTime, beginRenderTime - msgSentTime, endRenderTime - msgSentTime);
+            double frameGrabTime = (double)rosPosMsg.frame_received_ms;
+            double frameDoneTime = (double)rosPosMsg.frame_done_processing_ms;
+            double msgSentTime = (double)rosPosMsg.msg_sent_ms;
+            Debug.LogFormat("msgid:{0} grabbed at {1:00}, done processing after{2:00},sent after {3:00}," +
+                " received {4:00}, begin render at {5:00} and finished render at {6:00}",
+                msgReceivedId, frameGrabTime, frameDoneTime-frameGrabTime, msgSentTime- frameGrabTime, 
+                msgReceivedTime - frameGrabTime, beginRenderTime - frameGrabTime, endRenderTime - frameGrabTime);
 
             //Publish results in new ros message for monitoring
-            PosRotMsg cubePos = new PosRotMsg(
+            RosTiming timingMsg = new RosTiming(
                     msgReceivedId,
-                    (float)msgSentTime,
-                    (float)(msgReceivedTime - msgSentTime),
-                    (float)(beginRenderTime - msgSentTime),
-                    (float)(endRenderTime - msgSentTime),
-                    0,
-                    0
+                    frameGrabTime,   //grab new frame time
+                    (frameDoneTime - frameGrabTime), //cv processing time
+                    (msgSentTime - frameGrabTime), // msg sent time
+                    (msgReceivedTime - frameGrabTime), //msg received in unity time
+                    (beginRenderTime - frameGrabTime), //unity begin render time
+                    (endRenderTime - frameGrabTime) //unity finish render time
                 );
-            ROSConnection.GetOrCreateInstance().Publish("pos_heard", cubePos);
+            ROSConnection.GetOrCreateInstance().Publish("pos_heard", timingMsg);
+
+            //sb.AppendLine(msgReceivedId.ToString() + "," +
+            //        frameGrabTime.ToString() + "," +
+            //        (frameDoneTime - frameGrabTime).ToString() + "," +
+            //        (msgSentTime - frameGrabTime).ToString() + "," +
+            //        (msgReceivedTime - frameGrabTime).ToString() + "," +
+            //        (beginRenderTime - frameGrabTime).ToString() + "," +
+            //        (endRenderTime - frameGrabTime).ToString());
+            //string info = sb.ToString();
+            //string folder = "C:/Users/iGym/Desktop/data";
+            //if (!System.IO.Directory.Exists(folder)) System.IO.Directory.CreateDirectory(folder);
+            //var filePath = System.IO.Path.Combine(folder, "export.csv");
+
+            //using (var writer = new System.IO.StreamWriter(filePath, false))
+            //{
+            //    writer.Write(info);
+            //}
 
         }
 
