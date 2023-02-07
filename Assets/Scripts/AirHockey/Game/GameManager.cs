@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 
 public class GameManager : MonoBehaviour
@@ -10,6 +11,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Inst;
     public int[] scores = new int[2];
     private Coroutine currentOpeningCoroutine;
+    [SerializeField] Text scoreLeft;
+    [SerializeField] Text scoreRight;
+    [SerializeField] GameObject crownLeft;
+    [SerializeField] GameObject crownRight;
 
     private void Awake()
     {
@@ -28,12 +33,12 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGameCoroutine(GameObject hockey = null)
     {
-        AudioManager.Instance.PlayOpeningAudio(Vector3.zero);
+        AudioManager.Instance.PlayOpeningAudio(new Vector3(768, 512, 0));
         if (hockey)
         {
             yield return new WaitForSeconds(0.5f);
-            hockey.transform.position = Vector3.zero;
-            hockey.SetActive(true);
+            hockey.transform.position = new Vector3(768, 512, 0);
+            //hockey.SetActive(true);
         }
     }
 
@@ -45,6 +50,24 @@ public class GameManager : MonoBehaviour
         }
 
         currentOpeningCoroutine = StartCoroutine(StartGameCoroutine(hockey));
+    }
+    private void Start()
+    {
+        scores[0] = 0;
+        scores[1] = 0;
+        crownLeft.SetActive(false);
+        crownRight.SetActive(false);
+    }
+    public void AddScore(int goalType)
+    {
+        scores[goalType] += 1;
+        Debug.Log(scores[0]);
+        Debug.Log(scores[1]);
+    }
+    private void Update()
+    {
+        scoreLeft.text = scores[1].ToString();
+        scoreRight.text = scores[0].ToString();
     }
 }
 
