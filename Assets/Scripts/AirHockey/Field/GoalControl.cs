@@ -33,8 +33,8 @@ public class GoalControl : MonoBehaviour
             GameManager.Inst.AddScore((int)goalType);
             AudioManager.Instance.PlayGoalAudio(current.position);
             yield return new WaitForSeconds(0.2f);
-            AudioManager.Instance.PlayJubilianceAudio(current.position);
-            yield return new WaitForSeconds(1.5f);
+            //AudioManager.Instance.PlayJubilianceAudio(current.position);
+            //yield return new WaitForSeconds(1.5f);
             //GameManager.Inst.scores[(int)goalType] += 1;
             GameManager.Inst.StartGame(hockey);
         }

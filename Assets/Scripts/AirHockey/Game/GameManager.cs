@@ -68,6 +68,27 @@ public class GameManager : MonoBehaviour
     {
         scoreLeft.text = scores[1].ToString();
         scoreRight.text = scores[0].ToString();
+
+        if(scores[0] == 5 || scores[1] == 5)
+        {
+            StartCoroutine(WinGame());
+        }
+    }
+    IEnumerator WinGame()
+    {
+        if (scores[1] == 5) {
+            crownLeft.SetActive(true);
+        }
+        else
+        {
+            crownRight.SetActive(true);
+        }
+        AudioManager.Instance.PlayJubilianceAudio(GameObject.Find("hockey").transform.position);
+        yield return new WaitForSeconds(1.5f);
+        crownLeft.SetActive(false);
+        crownRight.SetActive(false);
+        scores[0] = 0;
+        scores[1] = 0;
     }
 }
 
