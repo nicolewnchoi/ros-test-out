@@ -15,14 +15,13 @@ public class Emitter : MonoBehaviour
     private void SpawnShape()
     {
         int randomShape = Random.Range(0, shapePrefabs.Length);
-        GameObject shape = Instantiate(shapePrefabs[randomShape], transform.position, Quaternion.identity);
-        shape.GetComponent<ShapeBehavior>().random = RandomSpawner(512, 0);
-        //GameObject shape2 = Instantiate(shapePrefabs[randomShape], transform.position, Quaternion.identity);
-        //shape2.GetComponent<ShapeBehavior>().random = RandomSpawner(-512,0);
+        GameObject shapeRight = Instantiate(shapePrefabs[randomShape], new Vector2(transform.position.x + 20, transform.position.y), Quaternion.identity);
+        shapeRight.GetComponent<ShapeBehavior>().random = RandomSpawner(0, 2*Mathf.PI);
+        GameObject shapeLeft = Instantiate(shapePrefabs[randomShape], new Vector2(transform.position.x - 20, transform.position.y), Quaternion.identity);
+        shapeLeft.GetComponent<ShapeBehavior>().random = RandomSpawner(0, 2 * Mathf.PI);
     }
-    public Vector2 RandomSpawner(float angle, float angleMin)
+    public Vector2 RandomSpawner(float angleMin, float angle)
     {
-        //float random = Random.value * angle + angleMin;
         float random = Random.Range(angleMin, angle);
         return new Vector2(Mathf.Cos(random), Mathf.Sin(random));
     }

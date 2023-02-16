@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class ShapeBehavior : MonoBehaviour
 {
-    //public float movementSpeed;
     public float dieTime = 15f;
     public Vector2 random;
-
+    public float forceMagnitude = 5000;
 
     private void Start()
     {
-        //random = RandomSpawner(3*Mathf.PI/2, Mathf.PI);
-        Debug.Log(random);
-        Vector2 force = random * 5000;
+        Vector2 force = random * forceMagnitude;
         GetComponent<Rigidbody2D>().AddForce(force);
         StartCoroutine(KillShape());
     }
