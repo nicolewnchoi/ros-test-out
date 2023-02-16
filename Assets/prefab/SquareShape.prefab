@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3285559262340749540}
   m_Layer: 0
   m_Name: SquareShape
-  m_TagString: Hockey
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dieTime: 15
   random: {x: 0, y: 0}
+  forceMagnitude: 5000
 --- !u!61 &3285559262340749540
 BoxCollider2D:
   m_ObjectHideFlags: 0

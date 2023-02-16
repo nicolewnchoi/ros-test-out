@@ -19,4 +19,22 @@ public class ShapeBehavior : MonoBehaviour
         yield return new WaitForSeconds(dieTime);
         Destroy(gameObject);
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (collision.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite == gameObject.GetComponent<SpriteRenderer>().sprite)
+            {
+                if (transform.position.x < 768) // left of center
+                {
+                    ShapesGameManager.Instance.AddScore(0, 1);
+                }
+                else
+                {
+                    ShapesGameManager.Instance.AddScore(1, 1);
+                }
+                Destroy(gameObject);
+            }
+        }
+    }
 }
