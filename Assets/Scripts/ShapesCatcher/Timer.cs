@@ -4,12 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
-    public float timeRemaining = 10;
+    public float totalTime;
+    public float timeRemaining;
     public bool timerIsRunning = false;
     public Text timeText;
+    public Text timeText2;
+
+    public static Timer Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
     private void Start()
     {
         timerIsRunning = true;
+        timeRemaining = totalTime;
     }
     void Update()
     {
@@ -35,5 +51,6 @@ public class Timer : MonoBehaviour
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timeText2.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

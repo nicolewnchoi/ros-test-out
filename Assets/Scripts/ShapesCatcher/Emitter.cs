@@ -7,6 +7,7 @@ public class Emitter : MonoBehaviour
     [SerializeField] private float spawnTimeInterval;
 
     public GameObject[] shapePrefabs;
+    public GameObject[] specialShapePrefabs;
 
     private void Start()
     {
@@ -15,9 +16,15 @@ public class Emitter : MonoBehaviour
     private void SpawnShape()
     {
         int randomShape = Random.Range(0, shapePrefabs.Length);
-        GameObject shapeRight = Instantiate(shapePrefabs[randomShape], new Vector2(transform.position.x + 20, transform.position.y), Quaternion.identity);
+        GameObject shape = shapePrefabs[randomShape];
+        if (Mathf.FloorToInt(Timer.Instance.timeRemaining) % 25 == 0)
+        {
+            randomShape = Random.Range(0, specialShapePrefabs.Length);
+            shape = specialShapePrefabs[randomShape];
+        }
+        GameObject shapeRight = Instantiate(shape, new Vector2(transform.position.x + 20, transform.position.y), Quaternion.identity);
         shapeRight.GetComponent<ShapeBehavior>().random = RandomSpawner(0, 2*Mathf.PI);
-        GameObject shapeLeft = Instantiate(shapePrefabs[randomShape], new Vector2(transform.position.x - 20, transform.position.y), Quaternion.identity);
+        GameObject shapeLeft = Instantiate(shape, new Vector2(transform.position.x - 20, transform.position.y), Quaternion.identity);
         shapeLeft.GetComponent<ShapeBehavior>().random = RandomSpawner(0, 2 * Mathf.PI);
     }
     public Vector2 RandomSpawner(float angleMin, float angle)

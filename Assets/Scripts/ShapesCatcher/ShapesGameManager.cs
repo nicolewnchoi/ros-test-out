@@ -62,5 +62,8 @@ public class ShapesGameManager : MonoBehaviour
         GameObject[] shapes = GameObject.FindGameObjectsWithTag("Shape");
         foreach (GameObject shape in shapes)
             Destroy(shape);
+
+        Timer.Instance.timeRemaining = GetComponent<Timer>().totalTime;
+        Timer.Instance.timerIsRunning = true;
     }
 }

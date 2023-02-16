@@ -23,18 +23,26 @@ public class ShapeBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            if(gameObject.name == "HeartShape" || gameObject.name == "HeartShape(Clone)")
+            {
+                UpdatePlayerScore(5);
+            }
             if (collision.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite == gameObject.GetComponent<SpriteRenderer>().sprite)
             {
-                if (transform.position.x < 768) // left of center
-                {
-                    ShapesGameManager.Instance.AddScore(0, 1);
-                }
-                else
-                {
-                    ShapesGameManager.Instance.AddScore(1, 1);
-                }
-                Destroy(gameObject);
+                UpdatePlayerScore(1);
             }
         }
+    }
+    private void UpdatePlayerScore(int points)
+    {
+        if (transform.position.x < 768) // left of center
+        {
+            ShapesGameManager.Instance.AddScore(0, points);
+        }
+        else
+        {
+            ShapesGameManager.Instance.AddScore(1, points);
+        }
+        Destroy(gameObject);
     }
 }
