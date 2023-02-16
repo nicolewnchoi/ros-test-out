@@ -36,4 +36,31 @@ public class ShapesGameManager : MonoBehaviour
     {
         players[side].score += score;
     }
+    public IEnumerator WinGame()
+    {
+        if(players[0].score > players[1].score)
+        {
+            players[0].crown.SetActive(true);
+        }
+        else if (players[1].score > players[0].score)
+        {
+            players[1].crown.SetActive(true);
+        }
+        else // tie
+        {
+            players[0].crown.SetActive(true);
+            players[1].crown.SetActive(true);
+        }
+        AudioManager.Instance.PlayJubilianceAudio(GameObject.Find("Emitter").transform.position);
+        yield return new WaitForSeconds(1.5f);
+        players[0].crown.SetActive(false);
+        players[0].score = 0;
+        players[1].crown.SetActive(false);
+        players[1].score = 0;
+
+        //destroy all shape objects 
+        GameObject[] shapes = GameObject.FindGameObjectsWithTag("Shape");
+        foreach (GameObject shape in shapes)
+            Destroy(shape);
+    }
 }

@@ -7,6 +7,7 @@ TagManager:
   - Hockey
   - leftgoal
   - rightgoal
+  - Shape
   layers:
   - Default
   - TransparentFX
