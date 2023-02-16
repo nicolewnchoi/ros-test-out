@@ -14,6 +14,7 @@ namespace RosMessageTypes.ApInterfaces
         public override string RosMessageName => k_RosMessageName;
 
         public long id;
+        public double start_loop_ms;
         public double frame_grab_ms;
         public double frame_done_processing_ms;
         public double msg_sent_ms;
@@ -24,6 +25,7 @@ namespace RosMessageTypes.ApInterfaces
         public TimingMsg()
         {
             this.id = 0;
+            this.start_loop_ms = 0.0;
             this.frame_grab_ms = 0.0;
             this.frame_done_processing_ms = 0.0;
             this.msg_sent_ms = 0.0;
@@ -32,9 +34,10 @@ namespace RosMessageTypes.ApInterfaces
             this.end_render_ms = 0.0;
         }
 
-        public TimingMsg(long id, double frame_grab_ms, double frame_done_processing_ms, double msg_sent_ms, double msg_received_ms, double begin_render_ms, double end_render_ms)
+        public TimingMsg(long id, double start_loop_ms, double frame_grab_ms, double frame_done_processing_ms, double msg_sent_ms, double msg_received_ms, double begin_render_ms, double end_render_ms)
         {
             this.id = id;
+            this.start_loop_ms = start_loop_ms;
             this.frame_grab_ms = frame_grab_ms;
             this.frame_done_processing_ms = frame_done_processing_ms;
             this.msg_sent_ms = msg_sent_ms;
@@ -48,6 +51,7 @@ namespace RosMessageTypes.ApInterfaces
         private TimingMsg(MessageDeserializer deserializer)
         {
             deserializer.Read(out this.id);
+            deserializer.Read(out this.start_loop_ms);
             deserializer.Read(out this.frame_grab_ms);
             deserializer.Read(out this.frame_done_processing_ms);
             deserializer.Read(out this.msg_sent_ms);
@@ -59,6 +63,7 @@ namespace RosMessageTypes.ApInterfaces
         public override void SerializeTo(MessageSerializer serializer)
         {
             serializer.Write(this.id);
+            serializer.Write(this.start_loop_ms);
             serializer.Write(this.frame_grab_ms);
             serializer.Write(this.frame_done_processing_ms);
             serializer.Write(this.msg_sent_ms);
@@ -71,6 +76,7 @@ namespace RosMessageTypes.ApInterfaces
         {
             return "TimingMsg: " +
             "\nid: " + id.ToString() +
+            "\nstart_loop_ms: " + start_loop_ms.ToString() +
             "\nframe_grab_ms: " + frame_grab_ms.ToString() +
             "\nframe_done_processing_ms: " + frame_done_processing_ms.ToString() +
             "\nmsg_sent_ms: " + msg_sent_ms.ToString() +

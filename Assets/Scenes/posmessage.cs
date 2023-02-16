@@ -142,33 +142,36 @@ public class posmessage : MonoBehaviour
             double endRenderTime = (System.DateTime.UtcNow - new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc)).TotalMilliseconds;
 
             Debug.Assert((int)rosPosMsg.id == msgReceivedId);
-            double frameGrabTime = (double)rosPosMsg.frame_received_ms;
+            double loopStartTime = (double)rosPosMsg.start_loop_ms;
+            double frameGrabTime = (double)rosPosMsg.frame_grab_ms;
             double frameDoneTime = (double)rosPosMsg.frame_done_processing_ms;
             double msgSentTime = (double)rosPosMsg.msg_sent_ms;
-            Debug.LogFormat("msgid:{0} grabbed at {1:00}, done processing after{2:00},sent after {3:00}," +
-                " received {4:00}, begin render at {5:00} and finished render at {6:00}",
-                msgReceivedId, frameGrabTime, frameDoneTime-frameGrabTime, msgSentTime- frameGrabTime, 
-                msgReceivedTime - frameGrabTime, beginRenderTime - frameGrabTime, endRenderTime - frameGrabTime);
+            Debug.LogFormat("msgid:{0} started {1:00}, grabbed {2:00}, done processing after{3:00},sent after {4:00}," +
+                " received {5:00}, begin render {6:00} and finished render {7:00}",
+                msgReceivedId, loopStartTime, frameGrabTime-loopStartTime, frameDoneTime-loopStartTime, msgSentTime- loopStartTime, 
+                msgReceivedTime - loopStartTime, beginRenderTime - loopStartTime, endRenderTime - loopStartTime);
 
             //Publish results in new ros message for monitoring
             RosTiming timingMsg = new RosTiming(
                     msgReceivedId,
-                    frameGrabTime,   //grab new frame time
-                    (frameDoneTime - frameGrabTime), //cv processing time
-                    (msgSentTime - frameGrabTime), // msg sent time
-                    (msgReceivedTime - frameGrabTime), //msg received in unity time
-                    (beginRenderTime - frameGrabTime), //unity begin render time
-                    (endRenderTime - frameGrabTime) //unity finish render time
+                    loopStartTime,                      //loop start time
+                    (frameGrabTime- loopStartTime),   //grab new frame time
+                    (frameDoneTime - loopStartTime), //cv processing time
+                    (msgSentTime - loopStartTime), // msg sent time
+                    (msgReceivedTime - loopStartTime), //msg received in unity time
+                    (beginRenderTime - loopStartTime), //unity begin render time
+                    (endRenderTime - loopStartTime) //unity finish render time
                 );
             ROSConnection.GetOrCreateInstance().Publish("pos_heard", timingMsg);
 
             //sb.AppendLine(msgReceivedId.ToString() + "," +
-            //        frameGrabTime.ToString() + "," +
-            //        (frameDoneTime - frameGrabTime).ToString() + "," +
-            //        (msgSentTime - frameGrabTime).ToString() + "," +
-            //        (msgReceivedTime - frameGrabTime).ToString() + "," +
-            //        (beginRenderTime - frameGrabTime).ToString() + "," +
-            //        (endRenderTime - frameGrabTime).ToString());
+            //        loopStartTime.ToString() + "," +
+            //        (frameGrabTime - loopStartTime).ToString() + "," +
+            //        (frameDoneTime - loopStartTime).ToString() + "," +
+            //        (msgSentTime - loopStartTime).ToString() + "," +
+            //        (msgReceivedTime - loopStartTime).ToString() + "," +
+            //        (beginRenderTime - loopStartTime).ToString() + "," +
+            //        (endRenderTime - loopStartTime).ToString());
             //string info = sb.ToString();
             //string folder = "C:/Users/iGym/Desktop/data";
             //if (!System.IO.Directory.Exists(folder)) System.IO.Directory.CreateDirectory(folder);
