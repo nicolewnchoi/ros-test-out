@@ -10,6 +10,10 @@ public class ShapeBehavior : MonoBehaviour
 
     private void Start()
     {
+        if (gameObject.name == "Heart_Shape(Clone)")
+        {
+            dieTime = 5f;
+        }
         Vector2 force = random * forceMagnitude;
         GetComponent<Rigidbody2D>().AddForce(force);
         StartCoroutine(KillShape());
@@ -23,11 +27,13 @@ public class ShapeBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if(gameObject.name == "HeartShape" || gameObject.name == "HeartShape(Clone)")
+            if(gameObject.name == "Heart_Shape(Clone)")
             {
                 UpdatePlayerScore(5);
             }
-            if (collision.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite == gameObject.GetComponent<SpriteRenderer>().sprite)
+            string boundaryShapeType = collision.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite.name.Split('_')[0];
+            string shapeType = gameObject.GetComponent<SpriteRenderer>().sprite.name;
+            if (boundaryShapeType == shapeType)
             {
                 UpdatePlayerScore(1);
             }

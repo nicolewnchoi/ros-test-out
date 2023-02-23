@@ -23,9 +23,9 @@ public class Emitter : MonoBehaviour
             shape = specialShapePrefabs[randomShape];
         }
         GameObject shapeRight = Instantiate(shape, new Vector2(transform.position.x + 20, transform.position.y), Quaternion.identity);
-        shapeRight.GetComponent<ShapeBehavior>().random = RandomSpawner(0, 2*Mathf.PI);
+        shapeRight.GetComponent<ShapeBehavior>().random = RandomSpawner(Mathf.PI/2, 3*Mathf.PI/2);
         GameObject shapeLeft = Instantiate(shape, new Vector2(transform.position.x - 20, transform.position.y), Quaternion.identity);
-        shapeLeft.GetComponent<ShapeBehavior>().random = RandomSpawner(0, 2 * Mathf.PI);
+        shapeLeft.GetComponent<ShapeBehavior>().random = RandomSpawner(-Mathf.PI/2, Mathf.PI/2);
     }
     public Vector2 RandomSpawner(float angleMin, float angle)
     {
