@@ -17,6 +17,7 @@ public class posmessage : MonoBehaviour
     public List<float> x;
     public List<float> y;
     public List<float> r;
+    public List<bool> pastButton;
 
     //for debug
     public Text text;
@@ -67,8 +68,8 @@ public class posmessage : MonoBehaviour
     {
         float projector_height = 1024;
         float projector_width = 768;
-        float cv_width = 720f;
-        float cv_height = 480f;
+        float cv_width = 960f;
+        float cv_height = 640f;
 
         float perspective_x = 2 * projector_width / cv_width;
         float perspective_y = projector_height / cv_height;  //same
@@ -92,6 +93,7 @@ public class posmessage : MonoBehaviour
             r.Remove(r[r.Count - 1]);
         }
 
+
         for (int i = 0; i < player_num; i++)
         {
             x[i] = (float)rosPos.x[i] * perspective_x;
@@ -102,10 +104,39 @@ public class posmessage : MonoBehaviour
             objects[i].transform.position = pos1;
 
             //if is kicked set the size to a abosolute
-            if (kickbutton.Length == player_num && kickbutton[i])
+            //determine whether it's pressed for a long time
+            //if (kickbutton.Length == player_num && kickbutton[i]) //subject to change
+            //{
+            //    r[i] = 500; //need change later when we get gamemanager
+            //}
+            //else 
+
+            if (kickbutton.Length == 2) //need change after getting the ground size
             {
-                r[i] = 500; //need change later when we get gamemanager
+                if (x[i] <= projector_width && kickbutton[0])
+                {
+                    r[i] = 500;
+                }
+                else if(x[i] >= projector_width && kickbutton[1])
+                {
+                    r[i] = 500;
+                }
+                
             }
+            else if (kickbutton.Length == 1) //Length==32 so it's wrong!!!
+            {
+                Debug.Log("aaaaa\n");
+                r[i] = 50; //need change after discussing about game mechanisms
+            }
+
+            //for testing only 2/22
+            if (kickbutton.Length!=0 && kickbutton[0])
+            {
+                r[i] = 250; //subject to change
+            }
+
+            //add sth about pastButton
+            //pastButton[i] = kickbutton[i];
 
             var radius = gameMgr.Inst.currentData.ballRadius;
 
@@ -141,6 +172,8 @@ public class posmessage : MonoBehaviour
     void kickChange(RosButton kicksize)
     {
         kickbutton = kicksize.kick;
+
+        Debug.Log(kickbutton[0].ToString());
     }
 
     rosAirHockyreturnData currentStatus(rosAirHockyinData inData)
