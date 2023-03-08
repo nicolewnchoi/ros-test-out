@@ -51,7 +51,7 @@ public class ShapesGameManager : MonoBehaviour
             players[0].crown.SetActive(true);
             players[1].crown.SetActive(true);
         }
-        AudioManager.Instance.PlayJubilianceAudio(GameObject.Find("Emitter").transform.position);
+        AudioManager.Instance.PlayShapeWinAudio(GameObject.Find("Emitter").transform.position);
         yield return new WaitForSeconds(1.5f);
         players[0].crown.SetActive(false);
         players[0].score = 0;

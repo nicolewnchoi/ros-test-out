@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
     // shapes catcher
     public List<AudioClip> catchShapeList = new List<AudioClip>();
     public List<AudioClip> catchSpecialShapeList = new List<AudioClip>();
-    public List<AudioClip> emittingShapeList = new List<AudioClip>();
+    public List<AudioClip> shapeWinnerList = new List<AudioClip>();
 
     private enum AudioCondition
     {
@@ -31,7 +31,7 @@ public class AudioManager : MonoBehaviour
 
         CATCHSHAPE = 5,
         CATCHSPECIAL = 6,
-        EMIT = 7,
+        SHAPEWIN = 7,
     }
 
     private void Awake()
@@ -79,9 +79,9 @@ public class AudioManager : MonoBehaviour
     {
         PlayAudio(AudioCondition.CATCHSPECIAL, pos);
     }
-    public void PlayEmitAudio(Vector3 pos)
+    public void PlayShapeWinAudio(Vector3 pos)
     {
-        PlayAudio(AudioCondition.EMIT, pos);
+        PlayAudio(AudioCondition.SHAPEWIN, pos);
     }
 
     private void PlayAudio(AudioCondition condition, Vector3 position)
@@ -111,8 +111,8 @@ public class AudioManager : MonoBehaviour
             case AudioCondition.CATCHSPECIAL:
                 playList = catchSpecialShapeList;
                 break;
-            case AudioCondition.EMIT:
-                playList = emittingShapeList;
+            case AudioCondition.SHAPEWIN:
+                playList = shapeWinnerList;
                 break;
         }
 

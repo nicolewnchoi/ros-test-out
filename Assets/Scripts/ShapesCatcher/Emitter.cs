@@ -28,17 +28,11 @@ public class Emitter : MonoBehaviour
             shapeRight.GetComponent<ShapeBehavior>().random = RandomSpawner(Mathf.PI / 2, 3 * Mathf.PI / 2);
             GameObject shapeLeft = Instantiate(shape, new Vector2(transform.position.x - 20, transform.position.y), Quaternion.identity);
             shapeLeft.GetComponent<ShapeBehavior>().random = RandomSpawner(-Mathf.PI / 2, Mathf.PI / 2);
-            StartCoroutine(PlayAudio());
         }
     }
     public Vector2 RandomSpawner(float angleMin, float angle)
     {
         float random = Random.Range(angleMin, angle);
         return new Vector2(Mathf.Cos(random), Mathf.Sin(random));
-    }
-    IEnumerator PlayAudio()
-    {
-        AudioManager.Instance.PlayEmitAudio(transform.position);
-        yield return new WaitForSeconds(1f);
     }
 }

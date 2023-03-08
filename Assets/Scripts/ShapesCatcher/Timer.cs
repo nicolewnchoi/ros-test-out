@@ -48,6 +48,7 @@ public class Timer : MonoBehaviour
         {
             timeRemaining = totalTime;
             timerIsRunning = false;
+            DisplayTime(totalTime - 1);
             GameObject[] shapes = GameObject.FindGameObjectsWithTag("Shape");
             foreach (GameObject shape in shapes)
                 Destroy(shape);
