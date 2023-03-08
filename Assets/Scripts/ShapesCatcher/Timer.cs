@@ -24,7 +24,7 @@ public class Timer : MonoBehaviour
     }
     private void Start()
     {
-        timerIsRunning = true;
+        timerIsRunning = false;
         timeRemaining = totalTime;
     }
     void Update()
@@ -43,6 +43,30 @@ public class Timer : MonoBehaviour
                 timerIsRunning = false;
                 StartCoroutine(ShapesGameManager.Instance.WinGame());
             }
+        }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            timeRemaining = totalTime;
+            timerIsRunning = false;
+            GameObject[] shapes = GameObject.FindGameObjectsWithTag("Shape");
+            foreach (GameObject shape in shapes)
+                Destroy(shape);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (timerIsRunning)
+            {
+                timerIsRunning = false;
+            }
+            else
+            {
+                timerIsRunning = true;
+            }
+            GameObject[] shapes = GameObject.FindGameObjectsWithTag("Shape");
+            foreach (GameObject shape in shapes)
+                Destroy(shape);
+
+
         }
     }
     void DisplayTime(float timeToDisplay)
