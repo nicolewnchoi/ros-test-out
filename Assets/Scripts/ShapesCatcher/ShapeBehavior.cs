@@ -29,12 +29,16 @@ public class ShapeBehavior : MonoBehaviour
         {
             if(gameObject.name == "Heart_Shape(Clone)")
             {
+                StartCoroutine(PlayCatchSpecialAudio());
                 UpdatePlayerScore(5);
+
+                return;
             }
             string boundaryShapeType = collision.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite.name.Split('_')[0];
             string shapeType = gameObject.GetComponent<SpriteRenderer>().sprite.name;
             if (boundaryShapeType == shapeType)
             {
+                StartCoroutine(PlayCatchAudio());
                 UpdatePlayerScore(1);
             }
         }
@@ -50,5 +54,15 @@ public class ShapeBehavior : MonoBehaviour
             ShapesGameManager.Instance.AddScore(1, points);
         }
         Destroy(gameObject);
+    }
+    IEnumerator PlayCatchAudio()
+    {
+        AudioManager.Instance.PlayCatchSpecialShapeAudio(transform.position);
+        yield return new WaitForSeconds(1f);
+    }
+    IEnumerator PlayCatchSpecialAudio()
+    {
+        AudioManager.Instance.PlayCatchSpecialShapeAudio(transform.position);
+        yield return new WaitForSeconds(1f);
     }
 }

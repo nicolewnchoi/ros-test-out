@@ -15,15 +15,15 @@ public class Emitter : MonoBehaviour
     }
     private void SpawnShape()
     {
-        int randomShape = Random.Range(0, shapePrefabs.Length);
-        GameObject shape = shapePrefabs[randomShape];
-        if (Mathf.FloorToInt(Timer.Instance.timeRemaining) % 25 == 0)
-        {
-            randomShape = Random.Range(0, specialShapePrefabs.Length);
-            shape = specialShapePrefabs[randomShape];
-        }
         if (Timer.Instance.timerIsRunning)
         {
+            int randomShape = Random.Range(0, shapePrefabs.Length);
+            GameObject shape = shapePrefabs[randomShape];
+            if (Mathf.FloorToInt(Timer.Instance.timeRemaining) % 25 == 0)
+            {
+                randomShape = Random.Range(0, specialShapePrefabs.Length);
+                shape = specialShapePrefabs[randomShape];
+            }
             GameObject shapeRight = Instantiate(shape, new Vector2(transform.position.x + 20, transform.position.y), Quaternion.identity);
             shapeRight.GetComponent<ShapeBehavior>().random = RandomSpawner(Mathf.PI / 2, 3 * Mathf.PI / 2);
             GameObject shapeLeft = Instantiate(shape, new Vector2(transform.position.x - 20, transform.position.y), Quaternion.identity);

@@ -8,6 +8,7 @@ using rosAirHockyinData = RosMessageTypes.ApInterfaces.AddThreeIntsRequest;
 using rosAirHockyreturnData = RosMessageTypes.ApInterfaces.AddThreeIntsResponse;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class posmessage : MonoBehaviour
 {
@@ -30,7 +31,8 @@ public class posmessage : MonoBehaviour
     //unity service name
     string m_ServiceName = "unity_srv";
 
-    
+    //shapes catcher
+    [SerializeField] public Sprite[] boundaries;
 
     private void Awake()
     {
@@ -117,11 +119,11 @@ public class posmessage : MonoBehaviour
                 {
                     r[i] = 500;
                 }
-                else if(x[i] >= projector_width && kickbutton[1])
+                else if (x[i] >= projector_width && kickbutton[1])
                 {
                     r[i] = 500;
                 }
-                
+
             }
             else if (kickbutton.Length == 1) //Length==32 so it's wrong!!!
             {
@@ -130,7 +132,7 @@ public class posmessage : MonoBehaviour
             }
 
             //for testing only 2/22
-            if (kickbutton.Length!=0 && kickbutton[0])
+            if (kickbutton.Length != 0 && kickbutton[0])
             {
                 r[i] = 250; //subject to change
             }
@@ -138,11 +140,36 @@ public class posmessage : MonoBehaviour
             //add sth about pastButton
             //pastButton[i] = kickbutton[i];
 
-            var radius = gameMgr.Inst.currentData.ballRadius;
+            if (SceneManager.GetActiveScene().name == "ShapesCatcher")
+            {
+                transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().size = new Vector2(13.5f, 13.5f) * r[i];
+                if (transform.position.x < 768) // left of center
+                {
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        ChangeShape();
+                    }
+                }
+                else
+                {
+                    if (Input.GetMouseButtonDown(1))
+                    {
+                        ChangeShape();
+                    }
+                }
+            }
+            else if (SceneManager.GetActiveScene().name == "unity_ros_test")
+            {
+                var radius = gameMgr.Inst.currentData.ballRadius;
 
-            DrawCircle(objects[i], 200, r[i]*radius, 10f);
-            //update the collider
-            objects[i].GetComponent<CircleCollider2D>().radius = r[i]*radius;
+                DrawCircle(objects[i], 200, r[i] * radius, 10f);
+                //update the collider
+                objects[i].GetComponent<CircleCollider2D>().radius = r[i] * radius;
+            }
+            else
+            {
+                Debug.Log("invalid scene");
+            }
         }
 
 
@@ -179,6 +206,23 @@ public class posmessage : MonoBehaviour
     rosAirHockyreturnData currentStatus(rosAirHockyinData inData)
     {
         return gameMgr.Inst.tryUpdate(inData);
+    }
+
+    private void ChangeShape()
+    {
+        for (int i = 0; i < boundaries.Length; ++i)
+        {
+            if (transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite == boundaries[i])
+            {
+                if (i + 1 >= boundaries.Length)
+                {
+                    transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = boundaries[0];
+                    break;
+                }
+                transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = boundaries[i + 1];
+                break;
+            }
+        }
     }
 
 }
