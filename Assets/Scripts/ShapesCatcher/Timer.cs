@@ -24,11 +24,22 @@ public class Timer : MonoBehaviour
     }
     private void Start()
     {
-        timerIsRunning = true;
+        //timerIsRunning = true;
         timeRemaining = totalTime;
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (timerIsRunning)
+            {
+                timerIsRunning = false;
+            }
+            else
+            {
+                timerIsRunning = true;
+            }
+        }
         if (timerIsRunning)
         {
             if (timeRemaining > 0)

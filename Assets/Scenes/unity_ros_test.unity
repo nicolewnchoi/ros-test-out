@@ -1535,6 +1535,7 @@ MonoBehaviour:
   x: []
   y: []
   r: []
+  pastButton: 
   text: {fileID: 355351103}
   text2: {fileID: 355351102}
   text3: {fileID: 355351101}
@@ -2957,7 +2958,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 3286163911610860551, guid: 1681158de264c7e43a16e10390940135, type: 3}
-  m_Color: {r: 0, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
