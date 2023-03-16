@@ -7,7 +7,7 @@ public class SwitchShape : MonoBehaviour
     [SerializeField] public Sprite[] boundaries; 
     private void Update()
     {
-        transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().size = new Vector2(13.5f, 13.5f);
+        //transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().size = new Vector2(13.5f, 13.5f);
         if (transform.position.x < 768) // left of center
         {
             if (Input.GetMouseButtonDown(0))
