@@ -130,9 +130,11 @@ public class posmessageSC : MonoBehaviour
             //}
 
             //for testing only 2/22
+            //objectbase.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().size = new Vector2(13.5f, 13.5f);
+            objects[i].transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().size = new Vector2(.1f, .1f) * r[i];
+
             if (kickbutton.Length != 0 && kickbutton[0])
             {
-                objectbase.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().size = new Vector2(20f, 20f);//new Vector2(13.5f, 13.5f) * r[i];
                 ChangeShape(); //subject to change
             }
 
