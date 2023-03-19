@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+
 public class ShapeBehavior : MonoBehaviour
 {
     public float dieTime = 15f;
     public Vector2 random;
     public float forceMagnitude = 5000;
+
 
     private void Start()
     {
@@ -34,8 +37,8 @@ public class ShapeBehavior : MonoBehaviour
 
                 return;
             }
-            string boundaryShapeType = collision.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite.name.Split('_')[0];
-            string shapeType = gameObject.GetComponent<SpriteRenderer>().sprite.name;
+            int boundaryShapeType = (int)collision.gameObject.GetComponent<ShapeClass>().shape;
+            int shapeType = (int)GetComponent<ShapeClass>().shape;
             if (boundaryShapeType == shapeType)
             {
                 StartCoroutine(PlayCatchAudio());

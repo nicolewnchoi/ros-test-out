@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6555418993885024368}
   - component: {fileID: -8012274801872903036}
   - component: {fileID: -3973066237330365433}
+  - component: {fileID: 7793370321171948097}
   m_Layer: 0
   m_Name: Triangle_Shape
   m_TagString: Shape
@@ -121,7 +122,6 @@ MonoBehaviour:
   dieTime: 15
   random: {x: 0, y: 0}
   forceMagnitude: 5000
-  shape: triangle
 --- !u!61 &-3973066237330365433
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -148,3 +148,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 5.12, y: 5.12}
   m_EdgeRadius: 0
+--- !u!114 &7793370321171948097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6555418993885024372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b63eb59ca00086c4e88bb93f2c8fbeb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shape: 2

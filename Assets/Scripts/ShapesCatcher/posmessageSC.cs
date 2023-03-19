@@ -30,8 +30,8 @@ public class posmessageSC : MonoBehaviour
     //unity service name
     string m_ServiceName = "unity_srv";
 
+    public int shapesCount = 3;
 
-    [SerializeField] public Sprite[] boundaries;
     private void Awake()
     {
         
@@ -130,18 +130,41 @@ public class posmessageSC : MonoBehaviour
             //}
 
             //for testing only 2/22
-            //objectbase.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().size = new Vector2(13.5f, 13.5f);
-            objects[i].transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().size = new Vector2(.1f, .1f) * r[i];
+
+            //sprite renderer
+            //objects[i].transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().size = new Vector2(.1f, .1f) * r[i];
+            //objects[i].GetComponent<CircleCollider2D>().radius = 0.5f * r[i];
+
+
+            //line renderer
+            //DrawCircle(objects[i], 200, r[i], 10f);
+            //DrawSquare(objects[i], r[i], 10f);
+            //DrawTriangle(objects[i], r[i], 10f);
+            if (objects[i].GetComponent<ShapeClass>().shape == ShapeClass.Shape.CIRCLE)
+            {
+                DrawCircle(objects[i], 200, r[i], 10f);
+            }
+            else if (objects[i].GetComponent<ShapeClass>().shape == ShapeClass.Shape.SQUARE)
+            {
+                DrawSquare(objects[i], r[i], 10f);
+            }
+            else if (objects[i].GetComponent<ShapeClass>().shape == ShapeClass.Shape.TRIANGLE)
+            {
+                DrawTriangle(objects[i], r[i], 10f);
+            }
+            else
+            {
+                Debug.Log("invalid shape tag");
+            }
+
+            //update the collider
+            objects[i].GetComponent<CircleCollider2D>().radius = r[i];
 
             if (kickbutton.Length != 0 && kickbutton[0])
             {
-                ChangeShape(); //subject to change
+                ChangeShape(objects[i]); //subject to change
             }
 
-            //add sth about pastButton
-            //pastButton[i] = kickbutton[i];
-
-            //update the collider
         }
 
 
@@ -153,6 +176,52 @@ public class posmessageSC : MonoBehaviour
         // Debug.Log(rosPos.total);
         // Debug.Log(rosPos.size[0] + "and" + rosPos.size[1] +"and"+ rosPos.size[2]);
     }
+    void DrawCircle(GameObject object_temp, int steps, float radius, float width)
+    {
+        object_temp.GetComponent<LineRenderer>().positionCount = (steps + 1);
+        object_temp.GetComponent<LineRenderer>().startWidth = width;
+        object_temp.GetComponent<LineRenderer>().endWidth = width;
+
+        for (int i = 0; i < steps + 1; i++)
+        {
+            float x = radius * Mathf.Cos((360f / steps * i) * Mathf.Deg2Rad) + object_temp.transform.position.x;
+            float y = radius * Mathf.Sin((360f / steps * i) * Mathf.Deg2Rad) + object_temp.transform.position.y;
+            object_temp.GetComponent<LineRenderer>().SetPosition(i, new Vector3(x, y, object_temp.transform.position.z));
+        }
+    }
+
+    void DrawSquare(GameObject object_temp, float length, float width)
+    {
+        LineRenderer lr = object_temp.GetComponent<LineRenderer>();
+        lr.startWidth = width;
+        lr.endWidth = width;
+
+        lr.loop = true;
+        lr.positionCount = 4;
+
+        float x = object_temp.transform.position.x;
+        float y = object_temp.transform.position.y;
+
+        Vector3[] positions = new Vector3[4] { new Vector3(length + x, length + y, 0), new Vector3(length + x, -length + y, 0), new Vector3(-length + x, -length + y, 0), new Vector3(-length + x, length + y, 0) };
+        lr.SetPositions(positions);
+    }
+
+    void DrawTriangle(GameObject object_temp, float length, float width)
+    {
+        LineRenderer lr = object_temp.GetComponent<LineRenderer>();
+        lr.startWidth = width;
+        lr.endWidth = width;
+
+        lr.loop = true;
+        lr.positionCount = 3;
+
+        float x = object_temp.transform.position.x;
+        float y = object_temp.transform.position.y;
+
+        Vector3[] positions = new Vector3[3] { new Vector3(x, length + y, 0), new Vector3(-2*(length/Mathf.Sqrt(3)) + x, -length + y, 0), new Vector3(2*(length / Mathf.Sqrt(3)) + x, -length + y, 0) };
+        lr.SetPositions(positions);
+    }
+
     void kickChange(RosButton kicksize)
     {
         kickbutton = kicksize.kick;
@@ -165,21 +234,14 @@ public class posmessageSC : MonoBehaviour
         return gameMgr.Inst.tryUpdate(inData);
     }
 
-    private void ChangeShape()
+    private void ChangeShape(GameObject object_temp)
     {
-        for (int i = 0; i < boundaries.Length; ++i)
+        if ((int)object_temp.GetComponent<ShapeClass>().shape == shapesCount - 1)
         {
-            if (transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite == boundaries[i])
-            {
-                if (i + 1 >= boundaries.Length)
-                {
-                    transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = boundaries[0];
-                    break;
-                }
-                transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = boundaries[i + 1];
-                break;
-            }
+            object_temp.GetComponent<ShapeClass>().shape = 0;
+            return;
         }
+        object_temp.GetComponent<ShapeClass>().shape++;
     }
 
 }

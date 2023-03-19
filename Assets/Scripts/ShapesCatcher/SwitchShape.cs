@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SwitchShape : MonoBehaviour
 {
-    [SerializeField] public Sprite[] boundaries; 
+    //[SerializeField] public Sprite[] boundaries;
+    public int shapesCount = 3;
+
     private void Update()
     {
         //transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().size = new Vector2(13.5f, 13.5f);
@@ -12,31 +14,25 @@ public class SwitchShape : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                ChangeShape();
+                ChangeShape(gameObject);
             }
         }
         else
         {
             if (Input.GetMouseButtonDown(1))
             {
-                ChangeShape();
+                ChangeShape(gameObject);
             }
         }
     }
-    private void ChangeShape()
+
+    private void ChangeShape(GameObject object_temp)
     {
-        for (int i = 0; i < boundaries.Length; ++i)
+        if ((int)object_temp.GetComponent<ShapeClass>().shape == shapesCount - 1)
         {
-            if (transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite == boundaries[i])
-            {
-                if (i + 1 >= boundaries.Length)
-                {
-                    transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = boundaries[0];
-                    break;
-                }
-                transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>().sprite = boundaries[i + 1];
-                break;
-            }
+            object_temp.GetComponent<ShapeClass>().shape = 0;
+            return;
         }
+        object_temp.GetComponent<ShapeClass>().shape++;
     }
 }
