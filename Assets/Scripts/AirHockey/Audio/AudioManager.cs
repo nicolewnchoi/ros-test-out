@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance;
+    AudioSource audio;
 
     // Start is called before the first frame update
     public List<AudioClip> goalAudioList = new List<AudioClip>();
@@ -44,6 +45,10 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+    private void Start()
+    {
+        audio = gameObject.GetComponent<AudioSource>();
     }
 
     public void PlayGoalAudio(Vector3 pos)
@@ -122,6 +127,7 @@ public class AudioManager : MonoBehaviour
         }
 
         int choice = Random.Range(0, playList.Count);
-        AudioSource.PlayClipAtPoint(playList[choice], position);
+        audio.clip = playList[choice];
+        audio.Play();
     }
 }

@@ -31,32 +31,35 @@ public class GameManager : MonoBehaviour
     [Tooltip("The prefab to use for initiating the player")]
     public GameObject playerPrefab;
 
-    public IEnumerator StartGameCoroutine(GameObject hockey = null)
-    {
-        AudioManager.Instance.PlayOpeningAudio(new Vector3(768, 512, 0));
-        if (hockey)
-        {
-            yield return new WaitForSeconds(0.5f);
-            hockey.transform.position = new Vector3(768, 512, 0);
-            //hockey.SetActive(true);
-        }
-    }
+    //public IEnumerator StartGameCoroutine(GameObject hockey = null)
+    //{
+    //    AudioManager.Instance.PlayOpeningAudio(GameObject.Find("hockey").transform.position);
+    //    yield return new WaitForSeconds(1f);
+    //    //if (hockey)
+    //    //{
+    //    //    yield return new WaitForSeconds(0.5f);
+    //    //    hockey.transform.position = new Vector3(768, 512, 0);
+    //    //    //hockey.SetActive(true);
+    //    //}
+    //}
 
-    public void StartGame(GameObject hockey = null)
-    {
-        if (currentOpeningCoroutine != null)
-        {
-            StopCoroutine(currentOpeningCoroutine);
-        }
+    //public void StartGame(GameObject hockey = null)
+    //{
+    //    if (currentOpeningCoroutine != null)
+    //    {
+    //        StopCoroutine(currentOpeningCoroutine);
+    //    }
 
-        currentOpeningCoroutine = StartCoroutine(StartGameCoroutine(hockey));
-    }
+    //    currentOpeningCoroutine = StartCoroutine(StartGameCoroutine(hockey));
+    //}
     private void Start()
     {
         scores[0] = 0;
         scores[1] = 0;
         crownLeft.SetActive(false);
         crownRight.SetActive(false);
+
+        StartCoroutine(StartAudio());
     }
     public void AddScore(int goalType)
     {
@@ -89,6 +92,14 @@ public class GameManager : MonoBehaviour
         crownRight.SetActive(false);
         scores[0] = 0;
         scores[1] = 0;
+        AudioManager.Instance.PlayOpeningAudio(GameObject.Find("hockey").transform.position);
+        yield return new WaitForSeconds(1f);
+    }
+
+    IEnumerator StartAudio()
+    {
+        AudioManager.Instance.PlayOpeningAudio(GameObject.Find("hockey").transform.position);
+        yield return new WaitForSeconds(1f);
     }
 }
 
