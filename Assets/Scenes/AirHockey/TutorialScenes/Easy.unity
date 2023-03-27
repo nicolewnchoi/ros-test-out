@@ -1860,6 +1860,7 @@ GameObject:
   - component: {fileID: 1051939559}
   - component: {fileID: 1051939558}
   - component: {fileID: 1051939560}
+  - component: {fileID: 1051939561}
   m_Layer: 0
   m_Name: gameMgr
   m_TagString: Untagged
@@ -1922,6 +1923,24 @@ MonoBehaviour:
   crownLeft: {fileID: 416455868}
   crownRight: {fileID: 739227902}
   playerPrefab: {fileID: 0}
+--- !u!114 &1051939561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051939557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4431d9b62d547247911713bf1039ec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenes:
+  - Easy
+  - Medium
+  - Hard
+  - 03 Medium
+  - 04 Medium
 --- !u!1 &1182256319
 GameObject:
   m_ObjectHideFlags: 0
