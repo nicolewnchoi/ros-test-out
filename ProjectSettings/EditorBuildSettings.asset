@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/AirHockey/TutorialScenes/04 Medium.unity
     guid: 084347dfd49e9f64e84a546c8984b23b
   - enabled: 1
+    path: Assets/Scenes/AirHockey/TutorialScenes/05 Medium.unity
+    guid: 6f89d015dd0546e41b637d8e3356f60b
+  - enabled: 1
+    path: Assets/Scenes/AirHockey/TutorialScenes/06 Medium.unity
+    guid: 5aecb66d440365e45bb9427c314fb399
+  - enabled: 1
     path: Assets/Scenes/AirHockey/TutorialScenes/Easy.unity
     guid: db9f4ec1b2a654f4582b1ad5af0cd7c8
   - enabled: 1
@@ -20,7 +26,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AirHockey/TutorialScenes/Medium.unity
     guid: ed040c3666d7266418a24551b16d5ff4
-  - enabled: 1
-    path: Assets/Scenes/AirHockey/AirHockey.unity
-    guid: 5aecb66d440365e45bb9427c314fb399
   m_configObjects: {}
