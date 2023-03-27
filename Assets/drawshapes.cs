@@ -10,6 +10,7 @@ public class drawshapes : MonoBehaviour
     public float radius;
     public Vector2Int startend;
     public bool isgoal;
+    public float width = 20;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class drawshapes : MonoBehaviour
     void Update()
     {
         transform.position = point;
-        DrawCircle(this.gameObject, 200, radius, 20);
+        DrawCircle(this.gameObject, 200, radius, width);
         if (isgoal)
         {
             gameMgr.Inst.updateevent.RemoveListener(updateshape);//incase adding multiple events

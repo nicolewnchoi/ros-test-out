@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/unity_ros_test.unity
+    path: Assets/Scenes/AirHockey/AirHockey.unity
     guid: 5aecb66d440365e45bb9427c314fb399
   m_configObjects: {}
