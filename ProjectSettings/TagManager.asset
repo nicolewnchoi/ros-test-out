@@ -8,6 +8,7 @@ TagManager:
   - leftgoal
   - rightgoal
   - Shape
+  - RecordingCamera
   layers:
   - Default
   - TransparentFX

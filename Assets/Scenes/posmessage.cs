@@ -132,6 +132,7 @@ public class posmessage : MonoBehaviour
             //for testing only 2/22
             if (x[i] < 768 && kickbutton.Length != 0 && kickbutton[0])
             {
+                Debug.Log("button kicked!");
                 r[i] = 250; //subject to change
             }
 
