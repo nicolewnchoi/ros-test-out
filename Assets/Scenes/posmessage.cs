@@ -111,26 +111,26 @@ public class posmessage : MonoBehaviour
             //}
             //else 
 
-            if (kickbutton.Length == 2) //need change after getting the ground size
-            {
-                if (x[i] <= projector_width && kickbutton[0])
-                {
-                    r[i] = 500;
-                }
-                else if (x[i] >= projector_width && kickbutton[1])
-                {
-                    r[i] = 500;
-                }
+            //if (kickbutton.Length == 2) //need change after getting the ground size
+            //{
+            //    if (x[i] <= projector_width && kickbutton[0])
+            //    {
+            //        r[i] = 500;
+            //    }
+            //    else if (x[i] >= projector_width && kickbutton[1])
+            //    {
+            //        r[i] = 500;
+            //    }
 
-            }
-            else if (kickbutton.Length == 1) //Length==32 so it's wrong!!!
-            {
-                Debug.Log("aaaaa\n");
-                r[i] = 50; //need change after discussing about game mechanisms
-            }
+            //}
+            //else if (kickbutton.Length == 1) //Length==32 so it's wrong!!!
+            //{
+            //    Debug.Log("aaaaa\n");
+            //    r[i] = 50; //need change after discussing about game mechanisms
+            //}
 
             //for testing only 2/22
-            if (kickbutton.Length != 0 && kickbutton[0])
+            if (x[i] < 768 && kickbutton.Length != 0 && kickbutton[0])
             {
                 r[i] = 250; //subject to change
             }
