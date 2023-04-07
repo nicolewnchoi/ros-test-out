@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator StartAudio()
     {
-        AudioManager.Instance.PlayOpeningAudio(GameObject.Find("hockey").transform.position);
+        AudioManager.Instance.PlayOpeningAudio(new Vector3(593,791,0));
         yield return new WaitForSeconds(1f);
     }
 }
