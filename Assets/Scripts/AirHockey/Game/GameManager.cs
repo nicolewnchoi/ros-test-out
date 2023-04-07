@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject crownLeft;
     [SerializeField] GameObject crownRight;
 
+    public float totalTime;
+    public float timeRemaining;
+    public bool timerIsRunning = false;
+    public Text timeText;
+
     private void Awake()
     {
         if (Inst == null)
@@ -54,6 +59,9 @@ public class GameManager : MonoBehaviour
     //}
     private void Start()
     {
+        timerIsRunning = false;
+        timeRemaining = totalTime;
+
         scores[0] = 0;
         scores[1] = 0;
         crownLeft.SetActive(false);
@@ -72,18 +80,64 @@ public class GameManager : MonoBehaviour
         scoreLeft.text = scores[1].ToString();
         scoreRight.text = scores[0].ToString();
 
-        if(scores[0] == 5 || scores[1] == 5)
+        //if(scores[0] == 5 || scores[1] == 5)
+
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            StartCoroutine(WinGame());
+            if (timerIsRunning)
+            {
+                timerIsRunning = false;
+            }
+            else
+            {
+                timerIsRunning = true;
+            }
+        }
+        if (timerIsRunning)
+        {
+            if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+                DisplayTime(timeRemaining);
+            }
+            else
+            {
+                Debug.Log("Time has run out!");
+                timeRemaining = 0;
+                timerIsRunning = false;
+                StartCoroutine(WinGame());
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            timeRemaining = totalTime;
+            timerIsRunning = false;
+            DisplayTime(totalTime - 1);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (timerIsRunning)
+            {
+                timerIsRunning = false;
+            }
+            else
+            {
+                timerIsRunning = true;
+            }
         }
     }
     IEnumerator WinGame()
     {
-        if (scores[1] == 5) {
+        if (scores[1] > scores[0]) {
             crownLeft.SetActive(true);
+        }
+        else if(scores[1] < scores[0])
+        {
+            crownRight.SetActive(true);
         }
         else
         {
+            crownLeft.SetActive(true);
             crownRight.SetActive(true);
         }
         AudioManager.Instance.PlayJubilianceAudio(GameObject.Find("hockey").transform.position);
@@ -100,6 +154,14 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.Instance.PlayOpeningAudio(new Vector3(593,791,0));
         yield return new WaitForSeconds(1f);
+    }
+
+    void DisplayTime(float timeToDisplay)
+    {
+        timeToDisplay += 1;
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }
 
