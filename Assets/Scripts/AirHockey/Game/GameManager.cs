@@ -110,6 +110,8 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            crownLeft.SetActive(false);
+            crownRight.SetActive(false);
             timeRemaining = totalTime;
             timerIsRunning = false;
             DisplayTime(totalTime - 1);
@@ -141,9 +143,9 @@ public class GameManager : MonoBehaviour
             crownRight.SetActive(true);
         }
         AudioManager.Instance.PlayJubilianceAudio(GameObject.Find("hockey").transform.position);
-        yield return new WaitForSeconds(1.5f);
-        crownLeft.SetActive(false);
-        crownRight.SetActive(false);
+        //yield return new WaitForSeconds(1.5f);
+        //crownLeft.SetActive(false);
+        //crownRight.SetActive(false);
         scores[0] = 0;
         scores[1] = 0;
         AudioManager.Instance.PlayOpeningAudio(GameObject.Find("hockey").transform.position);
