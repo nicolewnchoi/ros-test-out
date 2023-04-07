@@ -7,6 +7,8 @@ public class Instructions : MonoBehaviour
 {
     public string[] scenes;
 
+    KeyCode[] keycodes = new KeyCode[] { KeyCode.Alpha0, KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8 };
+
     public static Instructions Instance;
     private void Awake()
     {
@@ -25,20 +27,11 @@ public class Instructions : MonoBehaviour
     {
         for (int i = 0; i < scenes.Length; ++i)
         {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(keycodes[i]))
             {
-                if (SceneManager.GetActiveScene().name == scenes[i] && SceneManager.GetActiveScene().name != scenes[scenes.Length - 1])
-                {
-                    SceneManager.LoadScene(scenes[i + 1]);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                if (SceneManager.GetActiveScene().name == scenes[i] && SceneManager.GetActiveScene().name != scenes[0])
-                {
-                    SceneManager.LoadScene(scenes[i - 1]);
-                }
+                SceneManager.LoadScene(scenes[i]);
             }
         }
+
     }
 }

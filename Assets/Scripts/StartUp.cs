@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StartUp : MonoBehaviour
 {
@@ -49,5 +50,7 @@ public class StartUp : MonoBehaviour
         UnityRosSetup();
         yield return new WaitForSeconds(10f);
         CVSetup();
+        yield return new WaitForSeconds(15f);
+        SceneManager.LoadScene("AirHockey");
     }
 }
