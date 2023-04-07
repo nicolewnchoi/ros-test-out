@@ -47,6 +47,12 @@ public class hockeyctr : MonoBehaviour
             }
 
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            transform.position = startpoint;
+            GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
