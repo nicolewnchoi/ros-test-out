@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class BallBehavior : MonoBehaviour
 {
-    //make the ball's mass heavier as soon as the player grabs the ball
-
     [SerializeField]
     float speed;
     [SerializeField]
@@ -33,41 +31,105 @@ public class BallBehavior : MonoBehaviour
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, wayPoint, speed * Time.deltaTime);
+        
         if(Vector2.Distance(transform.position, wayPoint) < range)
         {
+            Debug.Log("Vector2.Distance: " + Vector2.Distance(transform.position, wayPoint));
             SetNewDestination();
         }
     }
 
     void SetNewDestination()
     {
-        wayPoint = new Vector2(Random.Range(xMin, xMax), Random.Range(62.7f, 800.0f));
+        //wayPoint = new Vector2(Random.Range(xMin, xMax), Random.Range(62.7f, 800.0f));
+
+        if (transform.position.x >= 59.1f && transform.position.x <= 705.9f)
+        {
+            wayPoint = new Vector2(Random.Range(59.1f, 705.9f), Random.Range(62.7f, 800.0f));
+        }
+        else if (transform.position.x >= 822.9f && transform.position.x <= 1474.4f)
+        {
+            wayPoint = new Vector2(Random.Range(822.9f, 1474.4f), Random.Range(62.7f, 800.0f));
+        }
+
         //wayPoint = new Vector2(Random.Range(59.1f, 1474.4f), Random.Range(62.7f, 800.0f));
         //59.1f (first half start x distance)
         //705.9f (first half end x distance)
         //822.9f (first half start x distance)
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 3)
+        //Currently working code 
+        if (collision.gameObject.tag == "leftgoal")
         {
-            UpdatePlayerScore(1);
-        }
-    }
+            //shrunk the leftgoal size
+            //UpdatePlayerScore(1);
+            MostBallsManager.Instance.AddScore(1, 1);
+            MostBallsManager.Instance.AddScore(0, -1);
+            Debug.Log("updateScoreLeft");
 
-    private void UpdatePlayerScore(int points)
+            //Debug.Log("leftgoal");
+        }
+        if (collision.gameObject.tag == "rightgoal")
+        {
+            //shrunk the rightgoal size
+            //UpdatePlayerScore(1);
+            MostBallsManager.Instance.AddScore(0, 1);
+            MostBallsManager.Instance.AddScore(1, -1);
+            Debug.Log("updateScoreRight");
+            //Debug.Log("rightgoal");
+        }
+
+        //Currently working code
+
+        /*if (collision.gameObject.tag == "leftgoal")
+        {
+            if (collision.gameObject.tag == "Circle")
+            {
+                UpdatePlayerScore(1);
+            }
+        }
+
+        if (collision.gameObject.tag == "rightgoal")
+        {
+            if (collision.gameObject.tag == "Circle")
+            {
+                UpdatePlayerScore(1);
+            }
+        }*/
+
+        /*if (collision.gameObject.tag == "Circle")
+        {
+            if (gameObject.name == "LeftTeam")
+            {
+                UpdatePlayerScore(1);
+            }
+            else if (gameObject.name == "RightTeam")
+            {
+                UpdatePlayerScore(1);
+            }
+            /*if (gameObject.name == "LeftTeam" || gameObject.name == "RightTeam")
+            {
+                UpdatePlayerScore(1);
+            }
+        }
+    }*/
+
+    /*private void UpdatePlayerScore(int points)
     {
         if (transform.position.x < 706)
         {
-            ShapesGameManager.Instance.AddScore(0, points);
-            //MostBallsManager.Instance.AddScore(0, points);
+            //MostBallsManager.Instance.AddScore(1, points);
+            MostBallsManager.Instance.AddScore(1, 1);
+            Debug.Log("updateScoreLeft");
         }
         else
         {
-            ShapesGameManager.Instance.AddScore(1, points);
-            //MostBallsManager.Instance.AddScore(1, points);
+            //MostBallsManager.Instance.AddScore(0, points);
+            MostBallsManager.Instance.AddScore(0, 1);
+            Debug.Log("updateScoreRight");
         }
-    }
+    }*/
 
 }

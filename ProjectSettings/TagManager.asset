@@ -9,6 +9,7 @@ TagManager:
   - rightgoal
   - Shape
   - RecordingCamera
+  - Circle
   layers:
   - Default
   - TransparentFX
