@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 3997497043801067722}
   - component: {fileID: 7603847246608373182}
   - component: {fileID: -8482813900074404862}
-  - component: {fileID: -3198592009057105439}
   - component: {fileID: -1642996453935953821}
+  - component: {fileID: 3265280444676439501}
   m_Layer: 3
   m_Name: Circle
   m_TagString: Circle
@@ -98,14 +98,14 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.1
+  m_Mass: 6
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 2b0aa30fae27c5f46a29d0cd274ee7dd, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &-8482813900074404862
 CircleCollider2D:
@@ -123,7 +123,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &-3198592009057105439
+--- !u!114 &-1642996453935953821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,15 +132,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 3997497043801067724}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 341b214427bc06c4cbe93331805c7f3e, type: 3}
+  m_Script: {fileID: 11500000, guid: f10e34b47a87e3a4ab8656811e9a01f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wayPoints:
-  - {fileID: 7691314457246230775, guid: 1be6bb9b15ceccc47a170e0969980481, type: 3}
-  - {fileID: 2015584177072339263, guid: 437c840ef465f2048bf806caa4191517, type: 3}
-  player: {fileID: 0}
   speed: 100
---- !u!114 &-1642996453935953821
+  range: 0.1
+  xMin: 0
+  xMax: 0
+--- !u!114 &3265280444676439501
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,10 +148,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3997497043801067724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f10e34b47a87e3a4ab8656811e9a01f6, type: 3}
+  m_Script: {fileID: 11500000, guid: fdb2c6c72d23c42429a35118e326dd74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 100
-  range: 0.1
-  xMin: 0
-  xMax: 0
+  range: 10
+  forceMagnitude: 10

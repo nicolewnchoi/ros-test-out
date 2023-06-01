@@ -21,6 +21,7 @@ public class GrabBehavior : MonoBehaviour
     public float forceMulti = 10f;
     public Vector3 Direction { get; set; }
 
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -54,6 +55,7 @@ public class GrabBehavior : MonoBehaviour
                 //forceMulti += 30 * Time.deltaTime;
                 //hitInfo.collider.gameObject.AddForce(grabPoint.forward * 300);
 
+                //Recently working code:
                 Vector3 startPoint = hitInfo.collider.gameObject.transform.position;
                 Vector3 endPoint = hitInfo.collider.gameObject.transform.position + Direction * 2;
 
@@ -62,6 +64,7 @@ public class GrabBehavior : MonoBehaviour
                 //hitInfo.collider.gameObject.transform.position = Vector3.zero;
                 //hitInfo.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
 
+                //Recently working code
                 for (int i = 0; i < 25; i++)
                 {
                     hitInfo.collider.gameObject.transform.position = Vector3.Lerp(startPoint, endPoint, i * .04f);
@@ -87,8 +90,6 @@ public class GrabBehavior : MonoBehaviour
                     MostBallsManager.Instance.AddScore(1, 1);
                     MostBallsManager.Instance.AddScore(0, -1);
                 }
-
-                //hitInfo.collider.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
 
                 //hitInfo.collider.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x, 1) * forceMulti;
 

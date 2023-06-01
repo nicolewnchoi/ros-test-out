@@ -9,16 +9,12 @@ public class BallsPlayer
     public int score = 0;
     public GameObject crown;
     public Text scoreDisplay;
-    //public int scoreA = 0;
-    //public int scoreB = 0;
 }
 
 public class MostBallsManager : MonoBehaviour
 {
     public static MostBallsManager Instance;
     [SerializeField] public BallsPlayer[] players; //left: 0, right: 1
-    //[SerializeField] public Text teamA;
-    //[SerializeField] public Text teamB;
 
     private void Awake()
     {
@@ -34,8 +30,6 @@ public class MostBallsManager : MonoBehaviour
 
     private void Update()
     {
-        //teamA.text = scoreA.ToString();
-        //teamB.text = scoreB.ToSTring();
         players[0].scoreDisplay.text = players[0].score.ToString();
         players[1].scoreDisplay.text = players[1].score.ToString();
     }
@@ -44,6 +38,32 @@ public class MostBallsManager : MonoBehaviour
     {
         players[side].score += score;
     }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.tag == "leftgoal")
+        {
+            Debug.Log("Score from left side");
+            AddScore(0, 1);
+            GetComponent<CircleCollider2D>().enabled = false;
+            StartCoroutine(Scoring(1.0F));
+        }
+
+        if (collider.tag == "rightgoal")
+        {
+            Debug.Log("Score from right side");
+            AddScore(1, 1);
+            GetComponent<CircleCollider2D>().enabled = false;
+            StartCoroutine(Scoring(1.0F));
+        }
+    }
+
+    IEnumerator Scoring(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        GetComponent<CircleCollider2D>().enabled = true;
+    }
+
     public IEnumerator WinGame()
     {
         if (players[0].score < players[1].score)
@@ -54,14 +74,9 @@ public class MostBallsManager : MonoBehaviour
         {
             players[1].crown.SetActive(true);
         }
-        /*else // tie
-        {
-            players[0].crown.SetActive(true);
-            players[1].crown.SetActive(true);
-        }*/
 
         //AudioManager.Instance.PlayShapeWinAudio(GameObject.Find("Emitter").transform.position);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(5.0f);
         players[0].crown.SetActive(false);
         players[0].score = 0;
         players[1].crown.SetActive(false);
@@ -71,8 +86,8 @@ public class MostBallsManager : MonoBehaviour
         foreach (GameObject circle in circles)
             Destroy(circle);
 
-        Timer.Instance.timeRemaining = GetComponent<Timer>().totalTime;
-        Timer.Instance.timerIsRunning = true;
+        //TimerMostBalls.Instance.timeRemaining = GetComponent<TimerMostBalls>().totalTime;
+        //TimerMostBalls.Instance.timerIsRunning = true;
     }
 }
 

@@ -10,6 +10,7 @@ TagManager:
   - Shape
   - RecordingCamera
   - Circle
+  - Line
   layers:
   - Default
   - TransparentFX

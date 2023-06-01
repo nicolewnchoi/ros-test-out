@@ -4,7 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 
-public class BallBehavior : MonoBehaviour
+public class OldBallBehavior : MonoBehaviour
 {
     [SerializeField]
     float speed;

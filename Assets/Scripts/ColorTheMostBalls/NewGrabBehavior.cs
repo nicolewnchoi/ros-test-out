@@ -1,66 +1,71 @@
-/*using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class NewGrabBehavior : MonoBehaviour
 {
-    public Transform holdSpot;
-    private GameObject grabbedObject;
-    private float pickUpMask;
-    public Vector3 Direction { get; set; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (grabbedObject) //if grabbedObject is null
-        {
-            grabbedObject.transform.position = transform.position;
-            grabbedObject.transform.parent = null;
-            if (grabbedObject.GetComponent<Rigidbody2D>())
-            {
-                grabbedObject.GetComponent<Rigidbody2D>().simulated = true;
-            }
-            grabbedObject = null;
-        }
-        else
-        {
-            RaycastHit2D pickUp = Physics2D.Raycast(holdSpot.position, .4f, pickUpMask);
+	public bool grabbed;
+	RaycastHit2D hit;
+	public float distance = 2f;
+	public Transform holdpoint;
+	public float throwforce;
+	public LayerMask notgrabbed;
 
-            if (grabbedObject)
-            {
-                grabbedObject = pickUp.GameObject;
-                grabbedObject.transform.position = holdSpot.position;
-                grabbedObject.transform.parent = transform;
-                if (grabbedObject.GetComponent<Rigidbody2D>())
-                {
-                    grabbedObject.GetComponent<Rigidbody2D>().simulated = false;
-                }
-            }
-        }
+	// Use this for initialization
+	void Start()
+	{
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if(grabbedObject)
-            {
-                StartCoroutine(ThrowItem(grabbedObject));
-                grabbedObject = null;
-            }
-        }
-    }
+	}
 
-    IEnumerator ThrowItem(GameObject item)
-    {
-        Vector3 startPoint = item.transform.position;
-        Vector3 endPoint = transform.position + Direction * 2;
-        item.transform.parent = null;
-        for (int i = 0; i < 25; i++)
-        {
-            item.transform.position = Vector3.Lerp(startPoint, endPoint, i * .04f);
-            yield return null;
-        }
-        if (item.GetComponent<Rigidbody2D>())
-        {
-            item.GetComponent<Rigidbody2D>().simulated = true;
-        }
-    }
-}*/
+	// Update is called once per frame
+	void Update()
+	{
+
+		if (Input.GetKeyDown("space"))
+		{
+
+			if (!grabbed)
+			{
+				Physics2D.queriesStartInColliders = false;
+
+				hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, distance);
+
+				if (hit.collider != null)
+				{
+					grabbed = true;
+
+				}
+
+
+				//grab
+			}
+			else if (!Physics2D.OverlapPoint(holdpoint.position, notgrabbed))
+			{
+				grabbed = false;
+
+				if (hit.collider.gameObject.GetComponent<Rigidbody2D>() != null)
+				{
+
+					hit.collider.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x, 1) * throwforce;
+				}
+
+
+				//throw
+			}
+
+
+		}
+
+		if (grabbed)
+			hit.collider.gameObject.transform.position = holdpoint.position;
+
+
+	}
+
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.green;
+
+		Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.localScale.x * distance);
+	}
+}
