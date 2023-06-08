@@ -58,6 +58,7 @@ public class OldBallBehavior : MonoBehaviour
         //822.9f (first half start x distance)
     }
 
+    //Any easier way to store the circles on both sides?
     /*private void OnTriggerEnter2D(Collider2D collision)
     {
         //Currently working code 

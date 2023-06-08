@@ -41,10 +41,9 @@ GameObject:
   - component: {fileID: 1689221901432992444}
   - component: {fileID: 1689221901432992445}
   - component: {fileID: 1689221901432992446}
-  - component: {fileID: 1689221901432992447}
   - component: {fileID: 1689221901432992416}
   - component: {fileID: 1689221901432992443}
-  - component: {fileID: -5639484435660999264}
+  - component: {fileID: 8512210308531402402}
   m_Layer: 0
   m_Name: BallPlayer
   m_TagString: Untagged
@@ -61,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 1689221901432992417}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 600, y: 420.3, z: 0}
-  m_LocalScale: {x: 140, y: 140, z: 1}
+  m_LocalScale: {x: 180, y: 180, z: 1}
   m_Children:
   - {fileID: 1689221902974083403}
   - {fileID: 1689221901315147180}
@@ -141,19 +140,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1689221901432992447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689221901432992417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5174c5a929f10f4e90a8047a6920b89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 250
 --- !u!58 &1689221901432992416
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -187,25 +173,21 @@ MonoBehaviour:
   rayPoint: {fileID: 1689221902792501264}
   rayDistance: 0.1
   forceMulti: 25
---- !u!114 &-5639484435660999264
+--- !u!114 &8512210308531402402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1689221901432992417}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c184d19e775a4784192fae0ecf92f5b6, type: 3}
+  m_Script: {fileID: 11500000, guid: d3c81ffeb26bff740942c6970ad285b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabbed: 0
-  distance: 0.5
-  holdpoint: {fileID: 1689221901315147180}
-  throwforce: 10
-  notgrabbed:
-    serializedVersion: 2
-    m_Bits: 4294967295
+  speed: 5
+  player: {fileID: 0}
+  circleTransform: {fileID: 0}
 --- !u!1 &1689221902792501265
 GameObject:
   m_ObjectHideFlags: 0

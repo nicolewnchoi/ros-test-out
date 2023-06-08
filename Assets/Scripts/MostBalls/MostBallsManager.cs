@@ -74,17 +74,19 @@ public class MostBallsManager : MonoBehaviour
         {
             players[1].crown.SetActive(true);
         }
+        
+        //The 
+        //MostBallsAudio.Instance.PlayShapeWinAudio(GameObject.Find("field").transform.position);
 
-        //AudioManager.Instance.PlayShapeWinAudio(GameObject.Find("Emitter").transform.position);
         yield return new WaitForSeconds(5.0f);
         players[0].crown.SetActive(false);
         players[0].score = 0;
         players[1].crown.SetActive(false);
         players[1].score = 0;
 
-        GameObject[] circles = GameObject.FindGameObjectsWithTag("Circle");
-        foreach (GameObject circle in circles)
-            Destroy(circle);
+        GameObject[] shapes = GameObject.FindGameObjectsWithTag("Shape");
+        foreach (GameObject shape in shapes)
+            Destroy(shape);
 
         //TimerMostBalls.Instance.timeRemaining = GetComponent<TimerMostBalls>().totalTime;
         //TimerMostBalls.Instance.timerIsRunning = true;

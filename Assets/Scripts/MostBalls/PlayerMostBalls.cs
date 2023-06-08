@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMostBalls : MonoBehaviour
 {
     public float speed = 5f;
     Rigidbody2D rb;
     Vector3 startPosition;
+    public GameObject player;
+    public Transform circleTransform;
 
     private void Start()
     {
@@ -25,6 +27,26 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             RightKeyboardMovement();
+        }
+    }
+
+    //Keyboard control version
+    //Maybe can do better than this
+    private void OnCollisionEnter2D(Collision2D col) //ball expands during contact
+    {
+        if (col.gameObject.CompareTag("Shape"))
+        {
+            Debug.Log("Player's circle increased");
+            circleTransform.localScale = new Vector3(circleTransform.localScale.x + 30.0f, circleTransform.localScale.y + 30.0f, 0);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D col) //ball shrinks when no longer in contact
+    {
+        if (col.gameObject.CompareTag("Shape"))
+        {
+            Debug.Log("Player's circle normal");
+            circleTransform.localScale = new Vector3(circleTransform.localScale.x - 30.0f, circleTransform.localScale.y - 30.0f, 0);
         }
     }
 
@@ -67,3 +89,4 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 }
+
