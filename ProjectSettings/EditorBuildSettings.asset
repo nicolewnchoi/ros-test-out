@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AirHockey/AirHockey.unity
     guid: 7bc82535ac2d8c045958ab9f6dcbc67e
+  - enabled: 1
+    path: Assets/Scenes/MostBalls/Tutorials/CircleDemo.unity
+    guid: 47f968936a0fed840bbb9a3d5c50037a
   m_configObjects: {}
